@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:swole_app/routes/routes_name.dart';
-import 'package:swole_app/view/splash_screen.dart';
-import 'package:swole_app/view/welcome_screen.dart';
+import '../ui/screens/splash_screen.dart';
+import '../ui/screens/welcome_screen.dart';
 
 class Routes{
   static Route<dynamic> generateRoute(RouteSettings settings){
