@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:swole_app/constants/assets.dart';
 import 'package:swole_app/constants/colors.dart';
+import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/view/welcome_screen.dart';
 class SplashScreen extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     Timer(const Duration(seconds: 5),() {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen(),));
+      Navigator.pushNamed(context, RoutesName.welcomeScreen);
     },
     );
     super.initState();
