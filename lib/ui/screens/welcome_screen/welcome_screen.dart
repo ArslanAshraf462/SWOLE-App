@@ -4,9 +4,9 @@ import 'package:swole_app/constants/colors.dart';
 import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
 
-import '../../constants/assets.dart';
-import '../widgets/background_image_widget.dart';
-import '../widgets/button_widget.dart';
+import '../../../constants/assets.dart';
+import '../../widgets/background_image_widget.dart';
+import '../../widgets/button_widget.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);

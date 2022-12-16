@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:swole_app/routes/routes_name.dart';
-import 'package:swole_app/ui/screens/create_account.dart';
-import '../ui/screens/splash_screen.dart';
-import '../ui/screens/welcome_screen.dart';
+import 'package:swole_app/ui/screens/create_account/create_account.dart';
+import '../ui/screens/splash_screen/splash_screen.dart';
+import '../ui/screens/welcome_screen/welcome_screen.dart';
 
 class Routes{
   static Route<dynamic> generateRoute(RouteSettings settings){

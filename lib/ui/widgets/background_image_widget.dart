@@ -6,13 +6,16 @@ class BackgroundImageWidget extends StatelessWidget {
   final Color upperColor;
   final Color lowerColor;
   final Widget child;
+  final PreferredSizeWidget? appBar;
 
   const BackgroundImageWidget(
       {Key? key,
       required this.image,
       required this.upperColor,
       required this.lowerColor,
-      required this.child})
+      required this.child,
+      this.appBar,
+      })
       : super(key: key);
 
   @override
@@ -37,6 +40,7 @@ class BackgroundImageWidget extends StatelessWidget {
               ]),
         ),
         child: Scaffold(
+          appBar: appBar,
           backgroundColor: Colors.transparent,
           body: child,
         ),

@@ -6,5 +6,6 @@ class AppAssets{
   static const String appleIcon='assets/images/apple.png';
   static const String fbIcon='assets/images/fb.png';
   static const String googleIcon='assets/images/google.png';
-
+  static const String createAccountScreenBgImage='assets/images/createaccountbg.jpg';
+  static const String imagePicker='assets/images/circle.png';
 }
