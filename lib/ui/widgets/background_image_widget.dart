@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swole_app/constants/colors.dart';
 
 class BackgroundImageWidget extends StatelessWidget {
   final String image;
@@ -22,6 +23,7 @@ class BackgroundImageWidget extends StatelessWidget {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: AssetImage(image),
+          colorFilter: const ColorFilter.mode(AppColors.welcomeScreenBGImageBlend, BlendMode.softLight)
         ),
       ),
       child: Container(
