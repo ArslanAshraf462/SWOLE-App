@@ -66,10 +66,13 @@ class WelcomeScreen extends StatelessWidget {
               title: AppStrings.createAnAccountText,
               titleColor: AppColors.whiteColor),
           UIHelper.verticalSpace(screenSize.height*0.02),
-          const Center(
-            child: Text(
-              AppStrings.loginText,
-              style: TextStyle(color: AppColors.whiteColor),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, RoutesName.login),
+            child: const Center(
+              child: Text(
+                AppStrings.loginText,
+                style: TextStyle(color: AppColors.whiteColor),
+              ),
             ),
           )
         ],

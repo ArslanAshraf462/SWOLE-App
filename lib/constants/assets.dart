@@ -8,4 +8,5 @@ class AppAssets{
   static const String googleIcon='assets/images/google.png';
   static const String createAccountScreenBgImage='assets/images/createaccountbg.jpg';
   static const String imagePicker='assets/images/circle.png';
+  static const String loginBackground='assets/images/loginbg.png';
 }

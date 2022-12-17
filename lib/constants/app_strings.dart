@@ -13,4 +13,6 @@ static const String acceptText='Accept our ';
 static const String privacyText='Privacy Policy ';
 static const String andText='and ';
 static const String termsText='Terms of Use';
+static const String forgotPasswordText='Forgot Password?';
+static const String loginAppBarText='Log In';
 }

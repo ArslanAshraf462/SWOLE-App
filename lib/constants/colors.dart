@@ -7,6 +7,8 @@ class AppColors{
   static const Color welcomeScreenOverlayColor2=Color.fromRGBO(0, 0, 0, 1);
   static const Color createAccountScreenOverlayColor1=Color.fromRGBO(0, 0, 0, 0.9);
   static const Color createAccountScreenOverlayColor2=Color.fromRGBO(0, 0, 0, 1);
+  static const Color loginScreenOverlayColor1=Color.fromRGBO(0, 0, 0, 0.5);
+  static const Color loginScreenOverlayColor2=Color.fromRGBO(0, 0, 0, 1);
   static const Color welcomeScreenBGImageBlend=Colors.grey;
   static const Color whiteColor=Colors.white;
   static const Color blackColor=Colors.black;
