@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../constants/colors.dart';
+import '../../../../constants/dimens.dart';
 
 class SelectImageWidget extends StatelessWidget {
   final VoidCallback onTap;
@@ -12,11 +13,11 @@ class SelectImageWidget extends StatelessWidget {
       onTap: onTap,
       child: const CircleAvatar(
         backgroundColor: AppColors.textFieldColor,
-        radius: 60,
+        radius: Dimens.size60,
         child: Icon(
           Icons.image_outlined,
           color: AppColors.whiteColor,
-          size: 40,
+          size: Dimens.size40,
         ),
       ),
     );

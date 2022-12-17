@@ -3,6 +3,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/assets.dart';
 import 'package:swole_app/constants/colors.dart';
+import 'package:swole_app/constants/dimens.dart';
 import 'package:swole_app/ui/screens/create_account/components/checkbox_widget.dart';
 import 'package:swole_app/ui/screens/create_account/components/select_image_widget.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
@@ -41,19 +42,19 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            UIHelper.verticalSpace(100),
+            UIHelper.verticalSpace(Dimens.size100),
             SelectImageWidget(
               onTap: () {
                 // showModalBottomSheet(context: context, builder: modelBottemsheet);
               },
             ),
-            UIHelper.verticalSpace(81),
+            UIHelper.verticalSpace(Dimens.size81),
             TextFormFieldWidget(
                 label: AppStrings.textFieldNameText,
                 textInputType: TextInputType.name,
                 validator: (p0) {},
                 controller: nameController,),
-            UIHelper.verticalSpace(15),
+            UIHelper.verticalSpace(Dimens.size15),
             TextFormFieldWidget(
               label: AppStrings.textFieldDOBText,
               suffixIcon: const Icon(
@@ -66,14 +67,14 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               controller: dobController,
             ),
 
-            UIHelper.verticalSpace(15),
+            UIHelper.verticalSpace(Dimens.size15),
             TextFormFieldWidget(
               label: AppStrings.textFieldEmailText,
               textInputType: TextInputType.emailAddress,
               validator: (p0) {},
               controller: emailController,
             ),
-            UIHelper.verticalSpace(15),
+            UIHelper.verticalSpace(Dimens.size15),
             TextFormFieldWidget(
               label: AppStrings.textFieldPasswordText,
               suffixIcon: const Icon(
@@ -85,7 +86,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               validator: (p0) {},
               controller: passwordController,
             ),
-            UIHelper.verticalSpace(20),
+            UIHelper.verticalSpace(Dimens.size20),
             Padding(
               padding: EdgeInsets.only(left: screenSize.width*0.04),
               child: Row(
@@ -122,7 +123,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 ],
               ),
             ),
-            UIHelper.verticalSpace(44),
+            UIHelper.verticalSpace(Dimens.size44),
             ButtonWidget(
                 onPressed: () {},
                 insertIcon: false,
@@ -132,7 +133,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                 fontWeight: FontWeight.w400,
                 titleColor: AppColors.whiteColor,
             ),
-            UIHelper.verticalSpace(55),
+            UIHelper.verticalSpace(Dimens.size55),
           ],
         ),
       ),
