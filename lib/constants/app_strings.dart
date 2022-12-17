@@ -15,4 +15,7 @@ static const String andText='and ';
 static const String termsText='Terms of Use';
 static const String forgotPasswordText='Forgot Password?';
 static const String loginAppBarText='Log In';
+static const String resetPasswordText='Reset Password';
+static const String cancelText='Cancel';
+static const String saveNewPassText='Save New Password';
 }

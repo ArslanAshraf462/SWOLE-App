@@ -17,4 +17,5 @@ class AppColors{
   static const Color textTextFieldColor=Color(0xff939393);
   static const Color textFieldInputColor=Color(0xffFFFFFF);
   static const Color checkboxTextColor=Color(0xffB7B7B7);
+  static const Color resetBackgroundColor=Color(0xff141414);
 }

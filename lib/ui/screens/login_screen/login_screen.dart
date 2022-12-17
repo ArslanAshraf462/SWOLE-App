@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swole_app/ui/screens/reset_password/reset_password.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
 
 import '../../../constants/app_strings.dart';
@@ -65,7 +66,9 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             UIHelper.verticalSpace(Dimens.size20),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPassword(),));
+              },
               child: Padding(
                 padding: EdgeInsets.only(left: screenSize.width*0.08),
                 child: const Text(AppStrings.forgotPasswordText,
