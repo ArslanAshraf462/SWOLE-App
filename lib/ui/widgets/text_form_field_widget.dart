@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   final String label;
+  final String? hintText;
+  final String? initialValue;
   final Widget? suffixIcon;
   final TextInputType textInputType;
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final bool obscureText;
+  final Function(String)? onChanged;
 
   TextFormFieldWidget({
     required this.label,
+    this.hintText,
+    this.initialValue,
     this.suffixIcon,
     this.obscureText=false,
-    required this.textInputType,
+    this.onChanged,
+    this.textInputType=TextInputType.text,
     required this.validator,
     required this.controller,
   });
@@ -35,10 +40,12 @@ class TextFormFieldWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: TextFormField(
+            onChanged: onChanged,
             controller: controller,
             validator: validator,
             decoration: InputDecoration(
               label: Text(label),
+              hintText: hintText,
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w400,
                 color: AppColors.textTextFieldColor,
