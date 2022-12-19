@@ -7,14 +7,15 @@ import 'package:swole_app/constants/assets.dart';
 import 'package:swole_app/constants/colors.dart';
 import 'package:swole_app/constants/dimens.dart';
 import 'package:swole_app/ui/screens/create_account/components/checkbox_widget.dart';
-import 'package:swole_app/ui/screens/create_account/components/select_image_widget.dart';
 import 'package:swole_app/ui/utils/app_dialogs/dialogs.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
 import 'package:swole_app/ui/widgets/app_bar_widget.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
 import 'package:swole_app/ui/widgets/button_widget.dart';
 import 'package:swole_app/ui/widgets/text_form_field_widget.dart';
+import 'package:swole_app/ui/widgets/text_widget.dart';
 
+import '../../utils/validations/validation_utils.dart';
 import '../../widgets/password_text_form_field.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -25,6 +26,7 @@ class CreateAccountScreen extends StatefulWidget {
 }
 
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   late final TextEditingController dobController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -46,7 +48,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         title: 'No Image Picked',
         body: 'Please pick the profile image',
         okBtnTitle: 'OK',
-        okBtnPressed: () =>Navigator.pop(context),
+        okBtnPressed: () => Navigator.pop(context),
       );
     }
   }
@@ -61,124 +63,154 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       appBar: const AppBarWidget(
         title: AppStrings.createAnAccountText,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            UIHelper.verticalSpace(Dimens.size100),
-            GestureDetector(
-              onTap: () => getImageGallery(),
-              child: _image == null
-                  ?  Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.textFieldColor,
-                  shape: BoxShape.circle,
-                ),
-                height: screenSize.height*0.17,
-                width: screenSize.width *0.4,
-                child: const Icon(
-                  Icons.image_outlined,
-                  color: AppColors.whiteColor,
-                  size: Dimens.size40,
-                ),
-              )
-                  : Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(image: FileImage(File(_image!.path)), fit: BoxFit.contain),
-                    shape: BoxShape.circle,
-                   // border: Border.all(color: MyColors.primary)
-                  ),
-                height: screenSize.height*0.17,
-                width: screenSize.width *0.4,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              UIHelper.verticalSpace(Dimens.size100),
+              GestureDetector(
+                onTap: () => getImageGallery(),
+                child: _image == null
+                    ? Container(
+                        decoration: const BoxDecoration(
+                          color: AppColors.textFieldColor,
+                          shape: BoxShape.circle,
+                        ),
+                        height: screenSize.height * 0.17,
+                        width: screenSize.width * 0.4,
+                        child: const Icon(
+                          Icons.image_outlined,
+                          color: AppColors.whiteColor,
+                          size: Dimens.size40,
+                        ),
+                      )
+                    : Container(
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: FileImage(File(_image!.path)),
+                              fit: BoxFit.contain),
+                          shape: BoxShape.circle,
+                          // border: Border.all(color: MyColors.primary)
+                        ),
+                        height: screenSize.height * 0.17,
+                        width: screenSize.width * 0.4,
+                      ),
               ),
-            ),
-            UIHelper.verticalSpace(Dimens.size81),
-            TextFormFieldWidget(
-              label: AppStrings.textFieldNameText,
-              textInputType: TextInputType.name,
-              validator: (p0) {},
-              controller: nameController,
-            ),
-            UIHelper.verticalSpace(Dimens.size15),
-            TextFormFieldWidget(
-              label: AppStrings.textFieldDOBText,
-              suffixIcon: InkWell(
-                onTap: () => pickDate(context),
-                child: const Icon(
-                  Icons.calendar_today,
-                  color: AppColors.textTextFieldColor,
-                  size: 16,
-                ),
-              ),
-              //textInputType: TextInputType.datetime,
-              validator: (p0) {},
-              controller: dobController,
-            ),
-            UIHelper.verticalSpace(Dimens.size15),
-            TextFormFieldWidget(
-              label: AppStrings.textFieldEmailText,
-              textInputType: TextInputType.emailAddress,
-              validator: (p0) {},
-              controller: emailController,
-            ),
-            UIHelper.verticalSpace(Dimens.size15),
-            PasswordTextFormFieldWidget(
-              label: AppStrings.textFieldPasswordText,
-              textInputType: TextInputType.text,
-              validator: (p0) {},
-              controller: passwordController,
-            ),
-            UIHelper.verticalSpace(Dimens.size20),
-            Padding(
-              padding: EdgeInsets.only(left: screenSize.width * 0.04),
-              child: Row(
-                children: [
-                  CheckBoxWidget(
-                    checked: (checked) {
-                      check = checked;
-                    },
-                  ),
-                  RichText(
-                    text: const TextSpan(children: [
-                      TextSpan(
-                          text: AppStrings.acceptText,
-                          style: TextStyle(
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      UIHelper.verticalSpace(Dimens.size81),
+                      TextFormFieldWidget(
+                        label: AppStrings.textFieldNameText,
+                        textInputType: TextInputType.name,
+                        validator: (value) {
+                         return ValidationUtils.validateField(value);
+                        },
+                        controller: nameController,
+                      ),
+                      UIHelper.verticalSpace(Dimens.size15),
+                      TextFormFieldWidget(
+                        label: AppStrings.textFieldDOBText,
+                        suffixIcon: InkWell(
+                          onTap: () => pickDate(context),
+                          child: const Icon(
+                            Icons.calendar_today,
                             color: AppColors.textTextFieldColor,
-                          )),
-                      TextSpan(
-                          text: AppStrings.privacyText,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.checkboxTextColor,
-                          )),
-                      TextSpan(
-                        text: AppStrings.andText,
-                        style: TextStyle(
-                          color: AppColors.textTextFieldColor,
+                            size: 16,
+                          ),
+                        ),
+                        //textInputType: TextInputType.datetime,
+                        validator: (value) {
+                          return ValidationUtils.validateDateField(value);
+                        },
+                        controller: dobController,
+                      ),
+                      UIHelper.verticalSpace(Dimens.size15),
+                      TextFormFieldWidget(
+                        label: AppStrings.textFieldEmailText,
+                        textInputType: TextInputType.emailAddress,
+                        validator: (value) {
+                          return ValidationUtils.validateEmail(value);
+                        },
+                        controller: emailController,
+                      ),
+                      UIHelper.verticalSpace(Dimens.size15),
+                      PasswordTextFormFieldWidget(
+                        label: AppStrings.textFieldPasswordText,
+                        textInputType: TextInputType.text,
+                        validator: (value) {
+                          return ValidationUtils.validatePassword(value);
+                        },
+                        controller: passwordController,
+                      ),
+                      UIHelper.verticalSpace(Dimens.size20),
+                      Padding(
+                        padding: EdgeInsets.only(left: screenSize.width * 0.04),
+                        child: Row(
+                          children: [
+                            CheckBoxWidget(
+                              checked: (checked) {
+                                check = checked;
+                              },
+                            ),
+                            RichText(
+                              text: const TextSpan(children: [
+                                TextSpan(
+                                    text: AppStrings.acceptText,
+                                    style: TextStyle(
+                                      color: AppColors.textTextFieldColor,
+                                    )),
+                                TextSpan(
+                                    text: AppStrings.privacyText,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.checkboxTextColor,
+                                    )),
+                                TextSpan(
+                                  text: AppStrings.andText,
+                                  style: TextStyle(
+                                    color: AppColors.textTextFieldColor,
+                                  ),
+                                ),
+                                TextSpan(
+                                    text: AppStrings.termsText,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.checkboxTextColor,
+                                    )),
+                              ]),
+                            ),
+                          ],
                         ),
                       ),
-                      TextSpan(
-                          text: AppStrings.termsText,
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.checkboxTextColor,
-                          )),
-                    ]),
-                  ),
-                ],
+                    ],
+                  )),
+              UIHelper.verticalSpace(Dimens.size44),
+              ButtonWidget(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    if (check != true) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: TextWidget(title: AppStrings.privacyValidateText),
+                          duration: Duration(seconds: 3),
+                        ),
+                      );
+                    }
+                  }
+                },
+                insertIcon: false,
+                leftWidth: screenSize.width * 0.3,
+                color: AppColors.appBlueColor,
+                title: AppStrings.createAccountText,
+                fontWeight: FontWeight.w400,
+                titleColor: AppColors.whiteColor,
               ),
-            ),
-            UIHelper.verticalSpace(Dimens.size44),
-            ButtonWidget(
-              onPressed: () {},
-              insertIcon: false,
-              leftWidth: screenSize.width * 0.3,
-              color: AppColors.appBlueColor,
-              title: AppStrings.createAccountText,
-              fontWeight: FontWeight.w400,
-              titleColor: AppColors.whiteColor,
-            ),
-            UIHelper.verticalSpace(Dimens.size55),
-          ],
+              UIHelper.verticalSpace(Dimens.size55),
+            ],
+          ),
         ),
       ),
     );

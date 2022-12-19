@@ -26,4 +26,13 @@ static const String checkEmailBodyText='We have sent an email an instructions to
 static const String okText='OK';
 static const String passwordSetTitleText='New Password Set!';
 static const String passwordSetBodyText='Your password successfully changed, go back to login to continue.';
+static const String nameValidateText='Name field is empty';
+static const String emptyEmailText='Email field is empty';
+static const String emailValidateText='Please enter valid email';
+static const String dateValidateText='Date field is empty';
+static const String emptyPasswordText='Password field is empty';
+static const String passwordValidateText='Please enter valid password';
+static const String privacyValidateText='Please agree the privacy policy';
+static const String emptyConPasswordText='Confirm password field is empty';
+static const String validateConPasswordText='Password Not Matched';
 }

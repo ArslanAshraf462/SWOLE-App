@@ -10,6 +10,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/dimens.dart';
 import '../../utils/app_dialogs/dialogs.dart';
 import '../../utils/ui_helper/ui_helper.dart';
+import '../../utils/validations/validation_utils.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/password_text_form_field.dart';
 import '../../widgets/text_form_field_widget.dart';
@@ -23,6 +24,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -40,70 +42,86 @@ class _LoginScreenState extends State<LoginScreen> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
       ),
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                top: screenSize.height * 0.3,
-                left: screenSize.width * 0.29,
-                right: screenSize.width * 0.29,
+      child: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: screenSize.height * 0.3,
+                  left: screenSize.width * 0.29,
+                  right: screenSize.width * 0.29,
+                ),
+                child: Image.asset(AppAssets.blueLogo),
               ),
-              child: Image.asset(AppAssets.blueLogo),
-            ),
-            UIHelper.verticalSpace(Dimens.size200),
-            TextFormFieldWidget(
-              label: AppStrings.textFieldEmailText,
-              textInputType: TextInputType.emailAddress,
-              validator: (p0) {},
-              controller: emailController,
-            ),
-            UIHelper.verticalSpace(Dimens.size15),
-            PasswordTextFormFieldWidget(
-              label: AppStrings.textFieldPasswordText,
-              textInputType: TextInputType.text,
-              validator: (value) {
-
-              },
-              controller: passwordController,
-            ),
-            UIHelper.verticalSpace(Dimens.size20),
-            GestureDetector(
-              onTap: () => _showBottomSheetResetPassword(context),
-              child: Padding(
-                padding: EdgeInsets.only(left: screenSize.width * 0.08),
-                child: const Text(
-                  AppStrings.forgotPasswordText,
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    color: AppColors.appBlueColor,
+              Form(
+                key: _formKey,
+                child: Column(
+                children: [
+                  UIHelper.verticalSpace(Dimens.size200),
+                  TextFormFieldWidget(
+                    label: AppStrings.textFieldEmailText,
+                    textInputType: TextInputType.emailAddress,
+                    validator: (value) {
+                      return ValidationUtils.validateEmail(value);
+                    },
+                    controller: emailController,
+                  ),
+                  UIHelper.verticalSpace(Dimens.size15),
+                  PasswordTextFormFieldWidget(
+                    label: AppStrings.textFieldPasswordText,
+                    textInputType: TextInputType.text,
+                    validator: (value) {
+                      return ValidationUtils.validatePassword(value);
+                    },
+                    controller: passwordController,
+                  ),
+                ],
+              ),),
+              UIHelper.verticalSpace(Dimens.size20),
+              GestureDetector(
+                onTap: () => _showBottomSheetResetPassword(context),
+                child: Padding(
+                  padding: EdgeInsets.only(left: screenSize.width * 0.08),
+                  child: const Text(
+                    AppStrings.forgotPasswordText,
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.appBlueColor,
+                    ),
                   ),
                 ),
               ),
-            ),
-            UIHelper.verticalSpace(Dimens.size46),
-            Padding(
-              padding: EdgeInsets.only(left: screenSize.width * 0.056),
-              child: ButtonWidget(
-                onPressed: () {},
-                insertIcon: false,
-                leftWidth: screenSize.width * 0.3,
-                color: AppColors.appBlueColor,
-                title: AppStrings.loginText,
-                fontWeight: FontWeight.w400,
-                titleColor: AppColors.whiteColor,
+              UIHelper.verticalSpace(Dimens.size46),
+              Padding(
+                padding: EdgeInsets.only(left: screenSize.width * 0.056),
+                child: ButtonWidget(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      print(emailController.text);
+                    }
+                  },
+                  insertIcon: false,
+                  leftWidth: screenSize.width * 0.38,
+                  color: AppColors.appBlueColor,
+                  title: AppStrings.loginText,
+                  fontWeight: FontWeight.w400,
+                  titleColor: AppColors.whiteColor,
+                ),
               ),
-            ),
-            UIHelper.verticalSpace(Dimens.size54),
-          ],
+              UIHelper.verticalSpace(Dimens.size54),
+            ],
+          ),
         ),
       ),
     );
   }
 
   _showBottomSheetResetPassword(BuildContext context) {
+    final TextEditingController mailController=TextEditingController();
     return showModalBottomSheet(
       //isDismissible: false,
         isScrollControlled: true,
@@ -179,8 +197,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                   title: AppStrings.checkEmailText,
                                   body: AppStrings.checkEmailBodyText,
                                   okBtnTitle: AppStrings.okText,
-                                  okBtnPressed:() => Navigator.pushNamed(context, RoutesName.resetPasswordScreen),
+                                  okBtnPressed:() {
+                                    Navigator.pop(context);
+                                  Navigator.pushNamed(context, RoutesName.resetPasswordScreen);
+
+                                  },
                               );
+                           // Navigator.pop(context);
                               },
                           child: const TextWidget(
                             title: AppStrings.submitText,
@@ -195,8 +218,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormFieldWidget(
                       label: AppStrings.yourEmailAddressText,
                       textInputType: TextInputType.emailAddress,
-                      validator: (p0) {},
-                      controller: emailController,
+                      validator: (value) {
+                        return ValidationUtils.validateEmail(value);
+                      },
+                      controller: mailController,
                     ),
                   ],
                 ),

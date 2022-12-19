@@ -6,6 +6,7 @@ import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
 import '../../../constants/colors.dart';
 import '../../../routes/routes_name.dart';
 import '../../utils/app_dialogs/dialogs.dart';
+import '../../utils/validations/validation_utils.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/password_text_form_field.dart';
 import '../../widgets/text_form_field_widget.dart';
@@ -18,6 +19,7 @@ class ResetPassword extends StatefulWidget {
 }
 
 class _ResetPasswordState extends State<ResetPassword> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confPasswordController = TextEditingController();
   @override
@@ -31,49 +33,67 @@ class _ResetPasswordState extends State<ResetPassword> {
         automaticallyImplyLeading: false,
         elevation: 0,
         actions: [
-          TextButton(onPressed: () {}, child: const Text(AppStrings.cancelText,style: TextStyle(color: AppColors.textTextFieldColor),))
+          TextButton(onPressed: (){ Navigator.pop(context);}, child: const Text(AppStrings.cancelText,style: TextStyle(color: AppColors.textTextFieldColor),))
         ],
       ),
       backgroundColor: AppColors.resetBackgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            UIHelper.verticalSpace(Dimens.size39),
-            PasswordTextFormFieldWidget(
-              label: AppStrings.textFieldPasswordText,
-              textInputType: TextInputType.text,
-              validator: (p0) {},
-              controller: passwordController,
-            ),
-            UIHelper.verticalSpace(Dimens.size10),
-            PasswordTextFormFieldWidget(
-              label: AppStrings.textFieldPasswordText,
-              textInputType: TextInputType.text,
-              validator: (p0) {},
-              controller: confPasswordController,
-            ),
-            UIHelper.verticalSpace(Dimens.size483),
-            ButtonWidget(
-                onPressed: () {
-                  //Navigator.pop(context);
-                  Navigator.pushNamed(context, RoutesName.login);
-                  AppDialogs.showAuthDialog(
-                    context: context,
-                    title: AppStrings.passwordSetTitleText,
-                    body: AppStrings.passwordSetBodyText,
-                    okBtnTitle: AppStrings.okText,
-                    okBtnPressed:() => Navigator.pop(context),
-                  );
-                },
-                insertIcon: false,
-                leftWidth: screenSize.width * 0.3,
-                color: AppColors.appBlueColor,
-                title: AppStrings.saveNewPassText,
-                fontWeight: FontWeight.w400,
-                titleColor: AppColors.whiteColor,
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                    UIHelper.verticalSpace(Dimens.size39),
+                    PasswordTextFormFieldWidget(
+                      label: AppStrings.textFieldPasswordText,
+                      textInputType: TextInputType.text,
+                      validator: (value) {
+                        return ValidationUtils.validatePassword(value);
+                      },
+                      controller: passwordController,
+                    ),
+                    UIHelper.verticalSpace(Dimens.size10),
+                    PasswordTextFormFieldWidget(
+                      label: AppStrings.textFieldPasswordText,
+                      textInputType: TextInputType.text,
+                      validator: (value) {
+                        return ValidationUtils.isCnfrmPasswordValid(value!, passwordController);
+                      },
+                      controller: confPasswordController,
+                    ),
+                    UIHelper.verticalSpace(Dimens.size483),
+              ],
+                  ),
               ),
-            UIHelper.verticalSpace(Dimens.size41),
-          ],
+              ButtonWidget(
+                  onPressed: () {
+                    if(_formKey.currentState!.validate()){
+                      print(passwordController.text);
+                      Navigator.pushNamed(context, RoutesName.login);
+                      AppDialogs.showAuthDialog(
+                        context: context,
+                        title: AppStrings.passwordSetTitleText,
+                        body: AppStrings.passwordSetBodyText,
+                        okBtnTitle: AppStrings.okText,
+                        okBtnPressed:() => Navigator.pop(context),
+                      );
+                    }
+                    //Navigator.pop(context);
+
+                  },
+                  insertIcon: false,
+                  leftWidth: screenSize.width * 0.3,
+                  color: AppColors.appBlueColor,
+                  title: AppStrings.saveNewPassText,
+                  fontWeight: FontWeight.w400,
+                  titleColor: AppColors.whiteColor,
+                ),
+              UIHelper.verticalSpace(Dimens.size41),
+            ],
+          ),
         ),
       ),
     );
