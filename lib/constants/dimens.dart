@@ -1,8 +1,10 @@
 class Dimens{
   static const double size10=10;
   static const double size15=15;
-  static const double size20=20;
   static const double size16=16;
+  static const double size18=18;
+  static const double size20=20;
+  static const double size30=30;
   static const double size39=39;
   static const double size40=40;
   static const double size41=41;

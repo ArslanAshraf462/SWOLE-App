@@ -12,6 +12,8 @@ import 'package:swole_app/ui/widgets/background_image_widget.dart';
 import 'package:swole_app/ui/widgets/button_widget.dart';
 import 'package:swole_app/ui/widgets/text_form_field_widget.dart';
 
+import '../../widgets/password_text_form_field.dart';
+
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
 
@@ -75,13 +77,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               controller: emailController,
             ),
             UIHelper.verticalSpace(Dimens.size15),
-            TextFormFieldWidget(
+            PasswordTextFormFieldWidget(
               label: AppStrings.textFieldPasswordText,
-              suffixIcon: const Icon(
-                Icons.remove_red_eye_outlined,
-                color: AppColors.textTextFieldColor,
-                size: 16,
-              ),
               textInputType: TextInputType.text,
               validator: (p0) {},
               controller: passwordController,

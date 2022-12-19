@@ -3,22 +3,29 @@ import 'package:get/get.dart';
 
 import '../../constants/colors.dart';
 
-class TextFormFieldWidget extends StatelessWidget {
+class PasswordTextFormFieldWidget extends StatefulWidget {
   final String label;
-  final Widget? suffixIcon;
+  //final Widget? suffixIcon;
   final TextInputType textInputType;
   final String? Function(String?)? validator;
   final TextEditingController controller;
-  final bool obscureText;
+ // final bool obscureText;
 
-  TextFormFieldWidget({
+  PasswordTextFormFieldWidget({
     required this.label,
-    this.suffixIcon,
-    this.obscureText=false,
+    // this.suffixIcon,
+    // this.obscureText=false,
     required this.textInputType,
     required this.validator,
     required this.controller,
   });
+
+  @override
+  State<PasswordTextFormFieldWidget> createState() => _PasswordTextFormFieldWidgetState();
+}
+
+class _PasswordTextFormFieldWidgetState extends State<PasswordTextFormFieldWidget> {
+  final ValueNotifier<bool> _obsecurePassword = ValueNotifier<bool>(true);
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +42,29 @@ class TextFormFieldWidget extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.only(left: 15),
           child: TextFormField(
-            controller: controller,
-            validator: validator,
+            controller: widget.controller,
+            validator: widget.validator,
             decoration: InputDecoration(
-              label: Text(label),
+              label: Text(widget.label),
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w400,
                 color: AppColors.textTextFieldColor,
                 fontSize: 14,
               ),
-              suffixIcon: suffixIcon,
+              suffixIcon: InkWell(
+                onTap: () {
+                  setState(() {
+                    _obsecurePassword.value= !_obsecurePassword.value;
+                  });
+                },
+                child: Icon(
+                  _obsecurePassword.value
+                      ? Icons.visibility_off_outlined
+                      : Icons.visibility,
+                  color: AppColors.textTextFieldColor,
+                  size: 16,
+                ),
+              ),
               border: InputBorder.none,
               focusedBorder: InputBorder.none,
               enabledBorder: InputBorder.none,
@@ -57,8 +77,8 @@ class TextFormFieldWidget extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
             textInputAction: TextInputAction.next,
-            keyboardType: textInputType,
-            obscureText: obscureText,
+            keyboardType: widget.textInputType,
+            obscureText: _obsecurePassword.value,
           ),
         ),
       ),

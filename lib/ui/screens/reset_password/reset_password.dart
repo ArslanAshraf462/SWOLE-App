@@ -4,7 +4,10 @@ import 'package:swole_app/constants/dimens.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
 
 import '../../../constants/colors.dart';
+import '../../../routes/routes_name.dart';
+import '../../utils/app_dialogs/dialogs.dart';
 import '../../widgets/button_widget.dart';
+import '../../widgets/password_text_form_field.dart';
 import '../../widgets/text_form_field_widget.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -36,32 +39,32 @@ class _ResetPasswordState extends State<ResetPassword> {
         child: Column(
           children: [
             UIHelper.verticalSpace(Dimens.size39),
-            TextFormFieldWidget(
+            PasswordTextFormFieldWidget(
               label: AppStrings.textFieldPasswordText,
-              suffixIcon: const Icon(
-                Icons.remove_red_eye_outlined,
-                color: AppColors.textTextFieldColor,
-                size: 16,
-              ),
               textInputType: TextInputType.text,
               validator: (p0) {},
               controller: passwordController,
             ),
             UIHelper.verticalSpace(Dimens.size10),
-            TextFormFieldWidget(
+            PasswordTextFormFieldWidget(
               label: AppStrings.textFieldPasswordText,
-              suffixIcon: const Icon(
-                Icons.remove_red_eye_outlined,
-                color: AppColors.textTextFieldColor,
-                size: 16,
-              ),
               textInputType: TextInputType.text,
               validator: (p0) {},
               controller: confPasswordController,
             ),
             UIHelper.verticalSpace(Dimens.size483),
             ButtonWidget(
-                onPressed: () {},
+                onPressed: () {
+                  //Navigator.pop(context);
+                  Navigator.pushNamed(context, RoutesName.login);
+                  AppDialogs.showAuthDialog(
+                    context: context,
+                    title: AppStrings.passwordSetTitleText,
+                    body: AppStrings.passwordSetBodyText,
+                    okBtnTitle: AppStrings.okText,
+                    okBtnPressed:() => Navigator.pop(context),
+                  );
+                },
                 insertIcon: false,
                 leftWidth: screenSize.width * 0.3,
                 color: AppColors.appBlueColor,

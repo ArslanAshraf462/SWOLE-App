@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/ui/screens/reset_password/reset_password.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
 
@@ -6,9 +8,12 @@ import '../../../constants/app_strings.dart';
 import '../../../constants/assets.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/dimens.dart';
+import '../../utils/app_dialogs/dialogs.dart';
 import '../../utils/ui_helper/ui_helper.dart';
 import '../../widgets/button_widget.dart';
+import '../../widgets/password_text_form_field.dart';
 import '../../widgets/text_form_field_widget.dart';
+import '../../widgets/text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -20,9 +25,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    final screenSize = MediaQuery.of(context).size;
+    final screenSize = MediaQuery
+        .of(context)
+        .size;
     return BackgroundImageWidget(
       image: AppAssets.loginBackground,
       upperColor: AppColors.loginScreenOverlayColor1,
@@ -53,40 +61,37 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: emailController,
             ),
             UIHelper.verticalSpace(Dimens.size15),
-            TextFormFieldWidget(
+            PasswordTextFormFieldWidget(
               label: AppStrings.textFieldPasswordText,
-              suffixIcon: const Icon(
-                Icons.remove_red_eye_outlined,
-                color: AppColors.textTextFieldColor,
-                size: 16,
-              ),
               textInputType: TextInputType.text,
-              validator: (p0) {},
+              validator: (value) {
+
+              },
               controller: passwordController,
             ),
             UIHelper.verticalSpace(Dimens.size20),
             GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => ResetPassword(),));
-              },
+              onTap: () => _showBottomSheetResetPassword(context),
               child: Padding(
-                padding: EdgeInsets.only(left: screenSize.width*0.08),
-                child: const Text(AppStrings.forgotPasswordText,
+                padding: EdgeInsets.only(left: screenSize.width * 0.08),
+                child: const Text(
+                  AppStrings.forgotPasswordText,
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                  color: AppColors.appBlueColor,
-                ),),
+                    color: AppColors.appBlueColor,
+                  ),
+                ),
               ),
             ),
             UIHelper.verticalSpace(Dimens.size46),
             Padding(
-              padding: EdgeInsets.only(left: screenSize.width*0.056),
+              padding: EdgeInsets.only(left: screenSize.width * 0.056),
               child: ButtonWidget(
                 onPressed: () {},
                 insertIcon: false,
                 leftWidth: screenSize.width * 0.3,
                 color: AppColors.appBlueColor,
-                title: AppStrings.createAccountText,
+                title: AppStrings.loginText,
                 fontWeight: FontWeight.w400,
                 titleColor: AppColors.whiteColor,
               ),
@@ -96,5 +101,108 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
+  }
+
+  _showBottomSheetResetPassword(BuildContext context) {
+    return showModalBottomSheet(
+      //isDismissible: false,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(30),
+            topRight: Radius.circular(30),
+          ),
+        ),
+        context: context,
+        builder: (builder) {
+          return Container(
+            height: MediaQuery
+                .of(context)
+                .size
+                .height * 0.8,
+            //height: 670.0,
+            color: Colors.transparent,
+            child: Container(
+              decoration: const BoxDecoration(
+                  color: AppColors.resetBackgroundColor,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0))),
+              child: GestureDetector(
+                onTap: () {},
+                behavior: HitTestBehavior.opaque,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    UIHelper.verticalSpace(Dimens.size10),
+                    Center(
+                      child: Card(
+                        elevation: 4,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Container(
+                          height: 6,
+                          width: 60,
+                          decoration: const BoxDecoration(
+                              color: AppColors.whiteColor,
+                              borderRadius:
+                              BorderRadius.all(Radius.circular(20))),
+                        ),
+                      ),
+                    ),
+                    UIHelper.verticalSpace(Dimens.size20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        UIHelper.horizontalSpace(
+                            MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.27),
+                        const TextWidget(
+                          title: AppStrings.forgotPasswordTitleText,
+                          fontSize: Dimens.size18,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.whiteColor,
+                        ),
+                        UIHelper.horizontalSpace(
+                            MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.14),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                              AppDialogs.showAuthDialog(
+                                context: context,
+                                  title: AppStrings.checkEmailText,
+                                  body: AppStrings.checkEmailBodyText,
+                                  okBtnTitle: AppStrings.okText,
+                                  okBtnPressed:() => Navigator.pushNamed(context, RoutesName.resetPasswordScreen),
+                              );
+                              },
+                          child: const TextWidget(
+                            title: AppStrings.submitText,
+                            fontSize: Dimens.size16,
+                            color: AppColors.appBlueColor,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    UIHelper.verticalSpace(Dimens.size30),
+                    TextFormFieldWidget(
+                      label: AppStrings.yourEmailAddressText,
+                      textInputType: TextInputType.emailAddress,
+                      validator: (p0) {},
+                      controller: emailController,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        });
   }
 }

@@ -3,6 +3,7 @@ import 'package:swole_app/routes/routes.dart';
 import 'package:swole_app/routes/routes_name.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 

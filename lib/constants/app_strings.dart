@@ -18,4 +18,12 @@ static const String loginAppBarText='Log In';
 static const String resetPasswordText='Reset Password';
 static const String cancelText='Cancel';
 static const String saveNewPassText='Save New Password';
+static const String forgotPasswordTitleText='Forgot Password';
+static const String submitText='Submit';
+static const String yourEmailAddressText='Your Email Address';
+static const String checkEmailText='Please Check Your Email';
+static const String checkEmailBodyText='We have sent an email an instructions to reset your password';
+static const String okText='OK';
+static const String passwordSetTitleText='New Password Set!';
+static const String passwordSetBodyText='Your password successfully changed, go back to login to continue.';
 }
