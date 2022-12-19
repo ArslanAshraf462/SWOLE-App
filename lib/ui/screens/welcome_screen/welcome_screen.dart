@@ -3,6 +3,7 @@ import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/colors.dart';
 import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
+import 'package:swole_app/ui/widgets/text_widget.dart';
 
 import '../../../constants/assets.dart';
 import '../../widgets/background_image_widget.dart';
@@ -69,9 +70,9 @@ class WelcomeScreen extends StatelessWidget {
           GestureDetector(
             onTap: () => Navigator.pushNamed(context, RoutesName.login),
             child: const Center(
-              child: Text(
-                AppStrings.loginText,
-                style: TextStyle(color: AppColors.whiteColor),
+              child: TextWidget(
+                title: AppStrings.loginText,
+                color: AppColors.whiteColor,
               ),
             ),
           )

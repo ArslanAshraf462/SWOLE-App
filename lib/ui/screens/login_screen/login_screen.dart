@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/ui/screens/reset_password/reset_password.dart';
+import 'package:swole_app/ui/widgets/app_bar_widget.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
 
 import '../../../constants/app_strings.dart';
@@ -27,6 +28,8 @@ class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passFocusNode = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -37,11 +40,8 @@ class _LoginScreenState extends State<LoginScreen> {
       image: AppAssets.loginBackground,
       upperColor: AppColors.loginScreenOverlayColor1,
       lowerColor: AppColors.loginScreenOverlayColor2,
-      appBar: AppBar(
-        title: const Text(AppStrings.loginAppBarText),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-      ),
+      appBar: const AppBarWidget(
+        title: AppStrings.loginAppBarText,),
       child: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: SingleChildScrollView(
@@ -86,12 +86,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 onTap: () => _showBottomSheetResetPassword(context),
                 child: Padding(
                   padding: EdgeInsets.only(left: screenSize.width * 0.08),
-                  child: const Text(
-                    AppStrings.forgotPasswordText,
+                  child: const TextWidget(
+                    title:AppStrings.forgotPasswordText,
                     textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: AppColors.appBlueColor,
-                    ),
+                    color: AppColors.appBlueColor,
                   ),
                 ),
               ),

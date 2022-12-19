@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
+import 'package:swole_app/ui/widgets/text_widget.dart';
 
 class ButtonWidget extends StatelessWidget {
   final bool insertIcon;
@@ -51,13 +52,11 @@ class ButtonWidget extends StatelessWidget {
               width: width,
             ),
             Center(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: titleColor,
-                  fontSize: 14,
-                  fontWeight: fontWeight,
-                ),
+              child: TextWidget(
+                title: title,
+                color: titleColor,
+                fontSize: 14,
+                fontWeight: fontWeight,
               ),
             ),
             //UIHelper.horizontalSpace(70),

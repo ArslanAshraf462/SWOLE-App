@@ -7,6 +7,8 @@ import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }

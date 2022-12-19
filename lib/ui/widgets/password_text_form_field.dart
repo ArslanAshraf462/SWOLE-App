@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:swole_app/ui/widgets/text_widget.dart';
 
 import '../../constants/colors.dart';
 
@@ -11,7 +12,7 @@ class PasswordTextFormFieldWidget extends StatefulWidget {
   final TextEditingController controller;
  // final bool obscureText;
 
-  PasswordTextFormFieldWidget({
+  const PasswordTextFormFieldWidget({super.key,
     required this.label,
     // this.suffixIcon,
     // this.obscureText=false,
@@ -45,7 +46,7 @@ class _PasswordTextFormFieldWidgetState extends State<PasswordTextFormFieldWidge
             controller: widget.controller,
             validator: widget.validator,
             decoration: InputDecoration(
-              label: Text(widget.label),
+              label: TextWidget(title: widget.label),
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w400,
                 color: AppColors.textTextFieldColor,

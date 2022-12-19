@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:swole_app/ui/widgets/text_widget.dart';
 
 import '../../constants/colors.dart';
 
@@ -13,7 +14,7 @@ class TextFormFieldWidget extends StatelessWidget {
   final bool obscureText;
   final Function(String)? onChanged;
 
-  TextFormFieldWidget({
+  const TextFormFieldWidget({super.key,
     required this.label,
     this.hintText,
     this.initialValue,
@@ -44,7 +45,7 @@ class TextFormFieldWidget extends StatelessWidget {
             controller: controller,
             validator: validator,
             decoration: InputDecoration(
-              label: Text(label),
+              label: TextWidget(title: label),
               hintText: hintText,
               labelStyle: const TextStyle(
                 fontWeight: FontWeight.w400,

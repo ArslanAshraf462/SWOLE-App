@@ -31,6 +31,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   late final TextEditingController dobController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  FocusNode nameFocusNode = FocusNode();
+  FocusNode dobFocusNode=FocusNode();
+  FocusNode emailFocusNode = FocusNode();
+  FocusNode passFocusNode = FocusNode();
   bool check = false;
   DateTime? date;
 
@@ -45,9 +49,9 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
     } else {
       AppDialogs.showAuthDialog(
         context: context,
-        title: 'No Image Picked',
-        body: 'Please pick the profile image',
-        okBtnTitle: 'OK',
+        title: AppStrings.noImagePickedText,
+        body: AppStrings.galleryCheckText,
+        okBtnTitle: AppStrings.okText,
         okBtnPressed: () => Navigator.pop(context),
       );
     }

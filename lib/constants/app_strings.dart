@@ -35,4 +35,6 @@ static const String passwordValidateText='Please enter valid password';
 static const String privacyValidateText='Please agree the privacy policy';
 static const String emptyConPasswordText='Confirm password field is empty';
 static const String validateConPasswordText='Password Not Matched';
+static const String noImagePickedText='No Image Picked';
+static const String galleryCheckText='Please pick the profile image';
 }
