@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
 
 import '../../constants/colors.dart';
+import 'icon_widget.dart';
 
 class PasswordTextFormFieldWidget extends StatefulWidget {
   final String label;
@@ -10,13 +11,19 @@ class PasswordTextFormFieldWidget extends StatefulWidget {
   final TextInputType textInputType;
   final String? Function(String?)? validator;
   final TextEditingController controller;
+  final TextInputAction textInputAction;
+  final FocusNode focusNode;
+  final Function(String)? onFieldSubmit;
  // final bool obscureText;
 
   const PasswordTextFormFieldWidget({super.key,
     required this.label,
+    required this.textInputAction,
     // this.suffixIcon,
     // this.obscureText=false,
+    this.onFieldSubmit,
     required this.textInputType,
+    required this.focusNode,
     required this.validator,
     required this.controller,
   });
@@ -58,8 +65,8 @@ class _PasswordTextFormFieldWidgetState extends State<PasswordTextFormFieldWidge
                     _obsecurePassword.value= !_obsecurePassword.value;
                   });
                 },
-                child: Icon(
-                  _obsecurePassword.value
+                child: IconWidget(
+                  icon: _obsecurePassword.value
                       ? Icons.visibility_off_outlined
                       : Icons.visibility,
                   color: AppColors.textTextFieldColor,
@@ -77,9 +84,11 @@ class _PasswordTextFormFieldWidgetState extends State<PasswordTextFormFieldWidge
               fontSize: 14,
               fontWeight: FontWeight.w400,
             ),
-            textInputAction: TextInputAction.next,
+            textInputAction: widget.textInputAction,
             keyboardType: widget.textInputType,
             obscureText: _obsecurePassword.value,
+            focusNode: widget.focusNode,
+            onFieldSubmitted: widget.onFieldSubmit,
           ),
         ),
       ),

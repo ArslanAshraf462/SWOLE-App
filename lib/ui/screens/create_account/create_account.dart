@@ -16,6 +16,8 @@ import 'package:swole_app/ui/widgets/text_form_field_widget.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
 
 import '../../utils/validations/validation_utils.dart';
+import '../../widgets/date_button_widget.dart';
+import '../../widgets/icon_widget.dart';
 import '../../widgets/password_text_form_field.dart';
 
 class CreateAccountScreen extends StatefulWidget {
@@ -83,8 +85,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         ),
                         height: screenSize.height * 0.17,
                         width: screenSize.width * 0.4,
-                        child: const Icon(
-                          Icons.image_outlined,
+                        child: const IconWidget(
+                          icon: Icons.image_outlined,
                           color: AppColors.whiteColor,
                           size: Dimens.size40,
                         ),
@@ -104,50 +106,54 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               Form(
                   key: _formKey,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       UIHelper.verticalSpace(Dimens.size81),
                       TextFormFieldWidget(
                         label: AppStrings.textFieldNameText,
                         textInputType: TextInputType.name,
-                        validator: (value) {
-                         return ValidationUtils.validateField(value);
-                        },
+                        textInputAction: TextInputAction.next,
+                        validator: (value) => ValidationUtils.validateField(value),
                         controller: nameController,
+                        focusNode: nameFocusNode,
+                        onFieldSubmit: (value) => FocusScope.of(context).requestFocus(emailFocusNode),
                       ),
-                      UIHelper.verticalSpace(Dimens.size15),
-                      TextFormFieldWidget(
-                        label: AppStrings.textFieldDOBText,
-                        suffixIcon: InkWell(
-                          onTap: () => pickDate(context),
-                          child: const Icon(
-                            Icons.calendar_today,
-                            color: AppColors.textTextFieldColor,
-                            size: 16,
-                          ),
-                        ),
-                        //textInputType: TextInputType.datetime,
-                        validator: (value) {
-                          return ValidationUtils.validateDateField(value);
-                        },
-                        controller: dobController,
-                      ),
-                      UIHelper.verticalSpace(Dimens.size15),
+                      UIHelper.verticalSpace(Dimens.size5),
+                      DateButtonWidget(title: getText()!, icon: Icons.calendar_today, onClicked: () =>pickDate(context),),
+                      // TextFormFieldWidget(
+                      //   label: AppStrings.textFieldDOBText,
+                      //   suffixIcon: InkWell(
+                      //     onTap: () => pickDate(context),
+                      //     child: const Icon(
+                      //       Icons.calendar_today,
+                      //       color: AppColors.textTextFieldColor,
+                      //       size: 16,
+                      //     ),
+                      //   ),
+                      //   //textInputType: TextInputType.datetime,
+                      //   validator: (value) {
+                      //     return ValidationUtils.validateDateField(value);
+                      //   },
+                      //   controller: dobController,
+                      // ),
+                      UIHelper.verticalSpace(Dimens.size5),
                       TextFormFieldWidget(
                         label: AppStrings.textFieldEmailText,
                         textInputType: TextInputType.emailAddress,
-                        validator: (value) {
-                          return ValidationUtils.validateEmail(value);
-                        },
+                        textInputAction: TextInputAction.next,
+                        validator: (value) => ValidationUtils.validateEmail(value),
                         controller: emailController,
+                        focusNode: emailFocusNode,
+                        onFieldSubmit: (value) => FocusScope.of(context).requestFocus(passFocusNode),
                       ),
                       UIHelper.verticalSpace(Dimens.size15),
                       PasswordTextFormFieldWidget(
                         label: AppStrings.textFieldPasswordText,
                         textInputType: TextInputType.text,
-                        validator: (value) {
-                          return ValidationUtils.validatePassword(value);
-                        },
+                        textInputAction: TextInputAction.done,
+                        validator: (value) => ValidationUtils.validatePassword(value),
                         controller: passwordController,
+                        focusNode: passFocusNode,
                       ),
                       UIHelper.verticalSpace(Dimens.size20),
                       Padding(

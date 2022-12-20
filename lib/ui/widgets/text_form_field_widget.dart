@@ -12,7 +12,10 @@ class TextFormFieldWidget extends StatelessWidget {
   final String? Function(String?)? validator;
   final TextEditingController controller;
   final bool obscureText;
+  final TextInputAction textInputAction;
   final Function(String)? onChanged;
+  final FocusNode? focusNode;
+  final Function(String)? onFieldSubmit;
 
   const TextFormFieldWidget({super.key,
     required this.label,
@@ -20,7 +23,10 @@ class TextFormFieldWidget extends StatelessWidget {
     this.initialValue,
     this.suffixIcon,
     this.obscureText=false,
+    this.onFieldSubmit,
+    this.focusNode,
     this.onChanged,
+    required this.textInputAction,
     this.textInputType=TextInputType.text,
     required this.validator,
     required this.controller,
@@ -67,6 +73,8 @@ class TextFormFieldWidget extends StatelessWidget {
             textInputAction: TextInputAction.next,
             keyboardType: textInputType,
             obscureText: obscureText,
+            focusNode: focusNode,
+            onFieldSubmitted: onFieldSubmit,
           ),
         ),
       ),

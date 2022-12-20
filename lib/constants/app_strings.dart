@@ -9,6 +9,7 @@ static const String textFieldNameText='Your Name';
 static const String textFieldDOBText='Date of Birth';
 static const String textFieldEmailText='Email';
 static const String textFieldPasswordText='Password';
+static const String textFieldConfPasswordText='Confirm New Password';
 static const String acceptText='Accept our ';
 static const String privacyText='Privacy Policy ';
 static const String andText='and ';

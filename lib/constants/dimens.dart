@@ -1,4 +1,5 @@
 class Dimens{
+  static const double size5=5;
   static const double size10=10;
   static const double size15=15;
   static const double size16=16;
@@ -15,6 +16,7 @@ class Dimens{
   static const double size60=60;
   static const double size81=81;
   static const double size100=100;
+  static const double size150=150;
   static const double size200=200;
   static const double size483=483;
 }

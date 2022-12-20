@@ -51,8 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  top: screenSize.height * 0.3,
-                  left: screenSize.width * 0.29,
+                  top: screenSize.height * 0.2,
+                  left: screenSize.width * 0.3,
                   right: screenSize.width * 0.29,
                 ),
                 child: Image.asset(AppAssets.blueLogo),
@@ -61,23 +61,26 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: _formKey,
                 child: Column(
                 children: [
-                  UIHelper.verticalSpace(Dimens.size200),
+                  UIHelper.verticalSpace(Dimens.size150),
                   TextFormFieldWidget(
                     label: AppStrings.textFieldEmailText,
                     textInputType: TextInputType.emailAddress,
-                    validator: (value) {
-                      return ValidationUtils.validateEmail(value);
-                    },
+                    textInputAction: TextInputAction.next,
+                    validator: (value) => ValidationUtils.validateEmail(value),
                     controller: emailController,
+                    focusNode: emailFocusNode,
+                    onFieldSubmit: (value) => FocusScope.of(context).requestFocus(passFocusNode),
                   ),
                   UIHelper.verticalSpace(Dimens.size15),
                   PasswordTextFormFieldWidget(
                     label: AppStrings.textFieldPasswordText,
                     textInputType: TextInputType.text,
+                    textInputAction: TextInputAction.done,
                     validator: (value) {
                       return ValidationUtils.validatePassword(value);
                     },
                     controller: passwordController,
+                    focusNode: passFocusNode,
                   ),
                 ],
               ),),
@@ -216,9 +219,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormFieldWidget(
                       label: AppStrings.yourEmailAddressText,
                       textInputType: TextInputType.emailAddress,
-                      validator: (value) {
-                        return ValidationUtils.validateEmail(value);
-                      },
+                      textInputAction: TextInputAction.done,
+                      validator: (value)=>ValidationUtils.validateEmail(value),
                       controller: mailController,
                     ),
                   ],

@@ -21,6 +21,8 @@ class _ResetPasswordState extends State<ResetPassword> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confPasswordController = TextEditingController();
+  FocusNode confPassFocusNode = FocusNode();
+  FocusNode passFocusNode = FocusNode();
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -49,19 +51,20 @@ class _ResetPasswordState extends State<ResetPassword> {
                     PasswordTextFormFieldWidget(
                       label: AppStrings.textFieldPasswordText,
                       textInputType: TextInputType.text,
-                      validator: (value) {
-                        return ValidationUtils.validatePassword(value);
-                      },
+                      textInputAction: TextInputAction.next,
+                      validator: (value) => ValidationUtils.validatePassword(value),
                       controller: passwordController,
+                      focusNode: passFocusNode,
+                      onFieldSubmit: (value) => FocusScope.of(context).requestFocus(confPassFocusNode),
                     ),
                     UIHelper.verticalSpace(Dimens.size10),
                     PasswordTextFormFieldWidget(
-                      label: AppStrings.textFieldPasswordText,
+                      label: AppStrings.textFieldConfPasswordText,
                       textInputType: TextInputType.text,
-                      validator: (value) {
-                        return ValidationUtils.isCnfrmPasswordValid(value!, passwordController);
-                      },
+                      textInputAction: TextInputAction.done,
+                      validator: (value) => ValidationUtils.isCnfrmPasswordValid(value!, passwordController),
                       controller: confPasswordController,
+                      focusNode: confPassFocusNode,
                     ),
                     UIHelper.verticalSpace(Dimens.size483),
               ],
