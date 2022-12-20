@@ -40,7 +40,7 @@ class DateButtonWidget extends StatelessWidget {
                 fontWeight: FontWeight.w400,
               ),
             ),
-            UIHelper.horizontalSpace(Dimens.size200),
+            UIHelper.horizontalSpace(screenSize.width * 0.5),
             IconWidget(
               icon: icon,
               color: AppColors.textTextFieldColor,
