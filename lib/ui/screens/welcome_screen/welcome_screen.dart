@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/colors.dart';
 import 'package:swole_app/routes/routes_name.dart';
@@ -49,7 +50,7 @@ class WelcomeScreen extends StatelessWidget {
               title: AppStrings.continueFbText,
               titleColor: AppColors.blackColor),
            ButtonWidget(
-               onPressed: () {},
+               onPressed: () => googleLogin(),
               width: screenSize.width*0.17,
               insertIcon: true,
               icon: AppAssets.googleIcon,
@@ -79,5 +80,27 @@ class WelcomeScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+  void googleLogin() async {
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      scopes: [
+        'email',
+        // you can add extras if you require
+      ],
+    );
+
+    _googleSignIn.signIn().whenComplete(() async {
+      GoogleSignInAccount? acc;
+      //GoogleSignInAuthentication auth = await acc.authentication;
+      print(acc?.id);
+      print(acc?.email);
+      print(acc?.displayName);
+      print(acc?.photoUrl);
+      acc?.authentication.then((GoogleSignInAuthentication auth) async {
+        print(auth.idToken);
+        print(auth.accessToken);
+      });
+    });
+
   }
 }
