@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.6
   intl: ^0.18.0
+  flutter_facebook_auth: ^5.0.6
   get: ^4.6.5
 
 dev_dependencies:
