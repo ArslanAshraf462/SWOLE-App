@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/colors.dart';
 import 'package:swole_app/routes/routes_name.dart';
@@ -41,7 +42,7 @@ class WelcomeScreen extends StatelessWidget {
               title: AppStrings.continueAppleText,
               titleColor: AppColors.blackColor),
            ButtonWidget(
-             onPressed: () {},
+             onPressed: () => facebookLogin(),
               width: screenSize.width*0.16,
               insertIcon: true,
               icon: AppAssets.fbIcon,
@@ -81,6 +82,7 @@ class WelcomeScreen extends StatelessWidget {
       ),
     );
   }
+
   void googleLogin() async {
     GoogleSignIn _googleSignIn = GoogleSignIn(
       scopes: [
@@ -101,6 +103,15 @@ class WelcomeScreen extends StatelessWidget {
         print(auth.accessToken);
       });
     });
+  }
+
+  facebookLogin() async{
+    await FacebookAuth.instance.login(
+      permissions: ['email', 'public_profile','user_birthday'],
+    );
+    final userData = await FacebookAuth.instance.getUserData();
+    debugPrint(userData['email']);
+    debugPrint(userData['public_profile']);
 
   }
 }
