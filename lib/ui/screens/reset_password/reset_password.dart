@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/dimens.dart';
@@ -73,7 +74,9 @@ class _ResetPasswordState extends State<ResetPassword> {
               ButtonWidget(
                   onPressed: () {
                     if(_formKey.currentState!.validate()){
-                      print(passwordController.text);
+                      if (kDebugMode) {
+                        print(passwordController.text);
+                      }
                       Navigator.pushNamed(context, RoutesName.login);
                       AppDialogs.showAuthDialog(
                         context: context,

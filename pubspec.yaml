@@ -38,6 +38,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   image_picker: ^0.8.6
   intl: ^0.18.0
+  google_sign_in: ^5.4.2
+  flutter_facebook_auth: ^5.0.6
+  http: ^0.13.5
+  fluttertoast: ^8.1.2
+  another_flushbar: ^1.12.29
   get: ^4.6.5
 
 dev_dependencies:
