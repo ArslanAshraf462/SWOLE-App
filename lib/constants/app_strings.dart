@@ -41,4 +41,7 @@ static const String galleryCheckText='Please pick the profile image';
 static const String selectText='Select option';
 static const String cameraText='Camera';
 static const String galleryText='Gallery';
+static const String emailText='email';
+static const String publicProfileText='public_profile';
+static const String userBirthdayText='user_birthday';
 }

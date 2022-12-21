@@ -19,6 +19,7 @@ import '../../utils/validations/validation_utils.dart';
 import '../../widgets/date_button_widget.dart';
 import '../../widgets/icon_widget.dart';
 import '../../widgets/password_text_form_field.dart';
+import 'components/image_pick_option_widget.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -62,7 +63,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
               children: [
                 UIHelper.verticalSpace(Dimens.size100),
                 GestureDetector(
-                  onTap: () => modelBottomSheet(context),
+                  onTap: () => imagePickModelBottomSheet(context),
                   child: _image == null
                       ? Container(
                           decoration: const BoxDecoration(
@@ -212,43 +213,13 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
       ),
     );
   }
-  modelBottomSheet(BuildContext context) {
+  imagePickModelBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
       builder: (context) {
-        return Container(
-          color: AppColors.textFieldColor,
-          height: 160,
-          width: double.infinity,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: TextWidget(
-                  title: AppStrings.selectText,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.whiteColor,
-                ),
-              ),
-              UIHelper.verticalSpace(Dimens.size10),
-              TextButton(
-                  onPressed: () {
-                    _pickImg(ImageSource.camera);
-                  },
-                  child: const TextWidget(
-                    title: AppStrings.cameraText,
-                    color: AppColors.appBlueColor,
-                    fontSize: 14,
-                  )),
-              UIHelper.verticalSpace(Dimens.size2),
-              TextButton(onPressed: (){
-                _pickImg(ImageSource.gallery);
-              }, child: const TextWidget(title: AppStrings.galleryText,
-                color: AppColors.appBlueColor,
-                fontSize: 14,))
-            ],
-          ),
+        return ImagePickOptionWidget(
+          onCameraTap: () => _pickImg(ImageSource.camera),
+          onGalleryTap: () => _pickImg(ImageSource.gallery),
         );
       },);
   }
