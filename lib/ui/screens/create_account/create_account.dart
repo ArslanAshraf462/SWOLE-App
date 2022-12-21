@@ -43,22 +43,6 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   File? _image;
   final ImagePicker _picker = ImagePicker();
 
-  Future getImageGallery() async {
-    final pickFile = await _picker.pickImage(source: ImageSource.gallery);
-    if (pickFile != null) {
-      _image = File(pickFile.path);
-      setState(() {});
-    } else {
-      AppDialogs.showAuthDialog(
-        context: context,
-        title: AppStrings.noImagePickedText,
-        body: AppStrings.galleryCheckText,
-        okBtnTitle: AppStrings.okText,
-        okBtnPressed: () => Navigator.pop(context),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
@@ -76,7 +60,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             children: [
               UIHelper.verticalSpace(Dimens.size100),
               GestureDetector(
-                onTap: () => getImageGallery(),
+                onTap: () => modelBottomSheet(context),
                 child: _image == null
                     ? Container(
                         decoration: const BoxDecoration(
@@ -224,6 +208,62 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         ),
       ),
     );
+  }
+  modelBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (context) {
+        return Container(
+          color: AppColors.textFieldColor,
+          height: 160,
+          width: double.infinity,
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(8.0),
+                child: TextWidget(
+                  title: AppStrings.selectText,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.whiteColor,
+                ),
+              ),
+              UIHelper.verticalSpace(Dimens.size10),
+              TextButton(
+                  onPressed: () {
+                    _pickImg(ImageSource.camera);
+                  },
+                  child: const TextWidget(
+                    title: AppStrings.cameraText,
+                    color: AppColors.appBlueColor,
+                    fontSize: 14,
+                  )),
+              UIHelper.verticalSpace(Dimens.size2),
+              TextButton(onPressed: (){
+                _pickImg(ImageSource.gallery);
+              }, child: const TextWidget(title: AppStrings.galleryText,
+                color: AppColors.appBlueColor,
+                fontSize: 14,))
+            ],
+          ),
+        );
+      },);
+  }
+
+  void _pickImg(ImageSource source)async{
+    final imgPicker= await _picker.pickImage(source: source);
+    if (imgPicker != null) {
+      _image = File(imgPicker.path);
+      setState(() {});
+    } else {
+      AppDialogs.showAuthDialog(
+        context: context,
+        title: AppStrings.noImagePickedText,
+        body: AppStrings.galleryCheckText,
+        okBtnTitle: AppStrings.okText,
+        okBtnPressed: () => Navigator.pop(context),
+      );
+    }
   }
 
   Future pickDate(BuildContext context) async {

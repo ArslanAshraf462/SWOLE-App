@@ -38,4 +38,7 @@ static const String emptyConPasswordText='Confirm password field is empty';
 static const String validateConPasswordText='Password Not Matched';
 static const String noImagePickedText='No Image Picked';
 static const String galleryCheckText='Please pick the profile image';
+static const String selectText='Select option';
+static const String cameraText='Camera';
+static const String galleryText='Gallery';
 }
