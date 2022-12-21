@@ -46,164 +46,167 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return BackgroundImageWidget(
-      image: AppAssets.createAccountScreenBgImage,
-      upperColor: AppColors.createAccountScreenOverlayColor1,
-      lowerColor: AppColors.createAccountScreenOverlayColor2,
-      appBar: const AppBarWidget(
-        title: AppStrings.createAnAccountText,
-      ),
-      child: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              UIHelper.verticalSpace(Dimens.size100),
-              GestureDetector(
-                onTap: () => modelBottomSheet(context),
-                child: _image == null
-                    ? Container(
-                        decoration: const BoxDecoration(
-                          color: AppColors.textFieldColor,
-                          shape: BoxShape.circle,
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: BackgroundImageWidget(
+        image: AppAssets.createAccountScreenBgImage,
+        upperColor: AppColors.createAccountScreenOverlayColor1,
+        lowerColor: AppColors.createAccountScreenOverlayColor2,
+        appBar: const AppBarWidget(
+          title: AppStrings.createAnAccountText,
+        ),
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                UIHelper.verticalSpace(Dimens.size100),
+                GestureDetector(
+                  onTap: () => modelBottomSheet(context),
+                  child: _image == null
+                      ? Container(
+                          decoration: const BoxDecoration(
+                            color: AppColors.textFieldColor,
+                            shape: BoxShape.circle,
+                          ),
+                          height: screenSize.height * 0.17,
+                          width: screenSize.width * 0.4,
+                          child: const IconWidget(
+                            icon: Icons.image_outlined,
+                            color: AppColors.whiteColor,
+                            size: Dimens.size40,
+                          ),
+                        )
+                      : Container(
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: FileImage(File(_image!.path)),
+                                fit: BoxFit.contain),
+                            shape: BoxShape.circle,
+                            // border: Border.all(color: MyColors.primary)
+                          ),
+                          height: screenSize.height * 0.17,
+                          width: screenSize.width * 0.4,
                         ),
-                        height: screenSize.height * 0.17,
-                        width: screenSize.width * 0.4,
-                        child: const IconWidget(
-                          icon: Icons.image_outlined,
-                          color: AppColors.whiteColor,
-                          size: Dimens.size40,
+                ),
+                Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        UIHelper.verticalSpace(Dimens.size81),
+                        TextFormFieldWidget(
+                          label: AppStrings.textFieldNameText,
+                          textInputType: TextInputType.name,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) => ValidationUtils.validateField(value),
+                          controller: nameController,
+                          focusNode: nameFocusNode,
+                          onFieldSubmit: (value) => FocusScope.of(context).requestFocus(emailFocusNode),
                         ),
-                      )
-                    : Container(
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: FileImage(File(_image!.path)),
-                              fit: BoxFit.contain),
-                          shape: BoxShape.circle,
-                          // border: Border.all(color: MyColors.primary)
+                        UIHelper.verticalSpace(Dimens.size5),
+                        DateButtonWidget(title: getText()!, icon: Icons.calendar_today, onClicked: () =>pickDate(context),),
+                        // TextFormFieldWidget(
+                        //   label: AppStrings.textFieldDOBText,
+                        //   suffixIcon: InkWell(
+                        //     onTap: () => pickDate(context),
+                        //     child: const Icon(
+                        //       Icons.calendar_today,
+                        //       color: AppColors.textTextFieldColor,
+                        //       size: 16,
+                        //     ),
+                        //   ),
+                        //   //textInputType: TextInputType.datetime,
+                        //   validator: (value) {
+                        //     return ValidationUtils.validateDateField(value);
+                        //   },
+                        //   controller: dobController,
+                        // ),
+                        UIHelper.verticalSpace(Dimens.size5),
+                        TextFormFieldWidget(
+                          label: AppStrings.textFieldEmailText,
+                          textInputType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) => ValidationUtils.validateEmail(value),
+                          controller: emailController,
+                          focusNode: emailFocusNode,
+                          onFieldSubmit: (value) => FocusScope.of(context).requestFocus(passFocusNode),
                         ),
-                        height: screenSize.height * 0.17,
-                        width: screenSize.width * 0.4,
-                      ),
-              ),
-              Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      UIHelper.verticalSpace(Dimens.size81),
-                      TextFormFieldWidget(
-                        label: AppStrings.textFieldNameText,
-                        textInputType: TextInputType.name,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) => ValidationUtils.validateField(value),
-                        controller: nameController,
-                        focusNode: nameFocusNode,
-                        onFieldSubmit: (value) => FocusScope.of(context).requestFocus(emailFocusNode),
-                      ),
-                      UIHelper.verticalSpace(Dimens.size5),
-                      DateButtonWidget(title: getText()!, icon: Icons.calendar_today, onClicked: () =>pickDate(context),),
-                      // TextFormFieldWidget(
-                      //   label: AppStrings.textFieldDOBText,
-                      //   suffixIcon: InkWell(
-                      //     onTap: () => pickDate(context),
-                      //     child: const Icon(
-                      //       Icons.calendar_today,
-                      //       color: AppColors.textTextFieldColor,
-                      //       size: 16,
-                      //     ),
-                      //   ),
-                      //   //textInputType: TextInputType.datetime,
-                      //   validator: (value) {
-                      //     return ValidationUtils.validateDateField(value);
-                      //   },
-                      //   controller: dobController,
-                      // ),
-                      UIHelper.verticalSpace(Dimens.size5),
-                      TextFormFieldWidget(
-                        label: AppStrings.textFieldEmailText,
-                        textInputType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) => ValidationUtils.validateEmail(value),
-                        controller: emailController,
-                        focusNode: emailFocusNode,
-                        onFieldSubmit: (value) => FocusScope.of(context).requestFocus(passFocusNode),
-                      ),
-                      UIHelper.verticalSpace(Dimens.size15),
-                      PasswordTextFormFieldWidget(
-                        label: AppStrings.textFieldPasswordText,
-                        textInputType: TextInputType.text,
-                        textInputAction: TextInputAction.done,
-                        validator: (value) => ValidationUtils.validatePassword(value),
-                        controller: passwordController,
-                        focusNode: passFocusNode,
-                      ),
-                      UIHelper.verticalSpace(Dimens.size20),
-                      Padding(
-                        padding: EdgeInsets.only(left: screenSize.width * 0.04),
-                        child: Row(
-                          children: [
-                            CheckBoxWidget(
-                              checked: (checked) {
-                                check = checked;
-                              },
-                            ),
-                            RichText(
-                              text: const TextSpan(children: [
-                                TextSpan(
-                                    text: AppStrings.acceptText,
+                        UIHelper.verticalSpace(Dimens.size15),
+                        PasswordTextFormFieldWidget(
+                          label: AppStrings.textFieldPasswordText,
+                          textInputType: TextInputType.text,
+                          textInputAction: TextInputAction.done,
+                          validator: (value) => ValidationUtils.validatePassword(value),
+                          controller: passwordController,
+                          focusNode: passFocusNode,
+                        ),
+                        UIHelper.verticalSpace(Dimens.size20),
+                        Padding(
+                          padding: EdgeInsets.only(left: screenSize.width * 0.04),
+                          child: Row(
+                            children: [
+                              CheckBoxWidget(
+                                checked: (checked) {
+                                  check = checked;
+                                },
+                              ),
+                              RichText(
+                                text: const TextSpan(children: [
+                                  TextSpan(
+                                      text: AppStrings.acceptText,
+                                      style: TextStyle(
+                                        color: AppColors.textTextFieldColor,
+                                      )),
+                                  TextSpan(
+                                      text: AppStrings.privacyText,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.checkboxTextColor,
+                                      )),
+                                  TextSpan(
+                                    text: AppStrings.andText,
                                     style: TextStyle(
                                       color: AppColors.textTextFieldColor,
-                                    )),
-                                TextSpan(
-                                    text: AppStrings.privacyText,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.checkboxTextColor,
-                                    )),
-                                TextSpan(
-                                  text: AppStrings.andText,
-                                  style: TextStyle(
-                                    color: AppColors.textTextFieldColor,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                    text: AppStrings.termsText,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.checkboxTextColor,
-                                    )),
-                              ]),
-                            ),
-                          ],
+                                  TextSpan(
+                                      text: AppStrings.termsText,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: AppColors.checkboxTextColor,
+                                      )),
+                                ]),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  )),
-              UIHelper.verticalSpace(Dimens.size44),
-              ButtonWidget(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    if (check != true) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: TextWidget(title: AppStrings.privacyValidateText),
-                          duration: Duration(seconds: 3),
-                        ),
-                      );
+                      ],
+                    )),
+                UIHelper.verticalSpace(Dimens.size44),
+                ButtonWidget(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      if (check != true) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: TextWidget(title: AppStrings.privacyValidateText),
+                            duration: Duration(seconds: 3),
+                          ),
+                        );
+                      }
                     }
-                  }
-                },
-                insertIcon: false,
-                leftWidth: screenSize.width * 0.3,
-                color: AppColors.appBlueColor,
-                title: AppStrings.createAccountText,
-                fontWeight: FontWeight.w400,
-                titleColor: AppColors.whiteColor,
-              ),
-              UIHelper.verticalSpace(Dimens.size55),
-            ],
+                  },
+                  insertIcon: false,
+                  leftWidth: screenSize.width * 0.3,
+                  color: AppColors.appBlueColor,
+                  title: AppStrings.createAccountText,
+                  fontWeight: FontWeight.w400,
+                  titleColor: AppColors.whiteColor,
+                ),
+                UIHelper.verticalSpace(Dimens.size55),
+              ],
+            ),
           ),
         ),
       ),

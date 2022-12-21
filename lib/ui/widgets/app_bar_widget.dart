@@ -10,6 +10,7 @@ class AppBarWidget extends StatelessWidget with PreferredSizeWidget{
       title: Text(title),
       centerTitle: true,
       backgroundColor: Colors.transparent,
+      automaticallyImplyLeading: false,
     );
   }
 
