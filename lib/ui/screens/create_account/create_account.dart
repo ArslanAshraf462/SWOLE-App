@@ -54,7 +54,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         upperColor: AppColors.createAccountScreenOverlayColor1,
         lowerColor: AppColors.createAccountScreenOverlayColor2,
         appBar: const AppBarWidget(
-          title: AppStrings.createAnAccountText,
+          title: TextWidget(title: AppStrings.createAnAccountText),
+          centerTitle: true,
         ),
         child: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

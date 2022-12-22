@@ -1,16 +1,25 @@
 import 'package:flutter/material.dart';
 
-class AppBarWidget extends StatelessWidget with PreferredSizeWidget{
-  final String title;
-  const AppBarWidget({Key? key,required this.title}) : super(key: key);
+class AppBarWidget extends StatelessWidget with PreferredSizeWidget {
+  final Widget title;
+  final bool centerTitle;
+  final List<Widget>? actions;
+
+  const AppBarWidget(
+      {Key? key,
+      required this.title,
+      required this.centerTitle,
+      this.actions})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Text(title),
-      centerTitle: true,
+      title: title,
+      centerTitle: centerTitle,
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: false,
+      actions: actions,
     );
   }
 

@@ -18,4 +18,6 @@ class AppColors{
   static const Color textFieldInputColor=Color(0xffFFFFFF);
   static const Color checkboxTextColor=Color(0xffB7B7B7);
   static const Color resetBackgroundColor=Color(0xff141414);
+  static const Color playButtonColor=Colors.white24;
+
 }

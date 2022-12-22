@@ -44,4 +44,9 @@ static const String galleryText='Gallery';
 static const String emailText='email';
 static const String publicProfileText='public_profile';
 static const String userBirthdayText='user_birthday';
+static const String dashboardAppBarTitleText='Hi, Medina';
+static const String workoutDayText='Workout of the Day';
+static const String homeText='Home';
+static const String workoutText='Workout';
+static const String progressText='Progress';
 }

@@ -8,5 +8,5 @@ class RoutesName{
   static const String resetPasswordScreen = 'reset_screen';
 
   //home screen routes name
-  static const String home = 'home_screen';
+  static const String dashboardScreen = 'dashboard_screen';
 }

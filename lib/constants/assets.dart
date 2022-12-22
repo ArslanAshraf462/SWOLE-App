@@ -9,4 +9,6 @@ class AppAssets{
   static const String createAccountScreenBgImage='assets/images/createaccountbg.jpg';
   static const String imagePicker='assets/images/circle.png';
   static const String loginBackground='assets/images/loginbg.png';
+  static const String dashboardProfile='assets/images/Profile_Small.png';
+  static const String dashboardHomeVideoProfile='assets/images/Bicep_Slide.png';
 }

@@ -42,7 +42,9 @@ class _LoginScreenState extends State<LoginScreen> {
         upperColor: AppColors.loginScreenOverlayColor1,
         lowerColor: AppColors.loginScreenOverlayColor2,
         appBar: const AppBarWidget(
-          title: AppStrings.loginAppBarText,),
+          title: TextWidget(title: AppStrings.loginAppBarText),
+        centerTitle: true,
+        ),
         child: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: SingleChildScrollView(
@@ -103,6 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ButtonWidget(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        Navigator.pushNamed(context, RoutesName.dashboardScreen);
                         if (kDebugMode) {
                           print(emailController.text);
                         }
