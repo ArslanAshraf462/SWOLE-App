@@ -12,6 +12,7 @@ class AppColors{
   static const Color welcomeScreenBGImageBlend=Colors.grey;
   static const Color whiteColor=Colors.white;
   static const Color blackColor=Colors.black;
+  static const Color redColor=Colors.red;
   static const Color appBlueColor=Color(0xff258DFD);
   static const Color textFieldColor=Color(0xff202328);
   static const Color textTextFieldColor=Color(0xff939393);

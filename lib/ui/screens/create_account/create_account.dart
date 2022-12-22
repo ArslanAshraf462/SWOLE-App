@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/assets.dart';
 import 'package:swole_app/constants/colors.dart';
@@ -15,6 +16,7 @@ import 'package:swole_app/ui/widgets/button_widget.dart';
 import 'package:swole_app/ui/widgets/text_form_field_widget.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
 
+import '../../../view_model/auth_view_model.dart';
 import '../../utils/validations/validation_utils.dart';
 import '../../widgets/date_button_widget.dart';
 import '../../widgets/icon_widget.dart';
@@ -46,6 +48,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
     final screenSize = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () => Future.value(false),
@@ -195,6 +198,18 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             duration: Duration(seconds: 3),
                           ),
                         );
+                      }else{
+                        // Map data = {
+                        //   'email' : emailController.text.toString(),
+                        //   'password' : passwordController.text.toString(),
+                        //   'role' : "a1953075-c13d-4a4c-997f-396a6a54649e",
+                        // };
+                        authViewModel.signUpApi(
+                          context: context,
+                          email: emailController.text.toString(),
+                          password: passwordController.text.toString(),
+                        );
+                        print('api hit');
                       }
                     }
                   },

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 import 'package:swole_app/routes/routes.dart';
 import 'package:swole_app/routes/routes_name.dart';
+import 'package:swole_app/view_model/auth_view_model.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,10 +20,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: RoutesName.splash,
-      onGenerateRoute: Routes.generateRoute,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=> AuthViewModel()),
+      ],
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: RoutesName.splash,
+        onGenerateRoute: Routes.generateRoute,
+      ),
     );
   }
 }
