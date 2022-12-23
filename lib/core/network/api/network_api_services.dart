@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart';
 import 'package:swole_app/core/network/api/response/api_model.dart';
+import 'package:swole_app/core/network/app_url.dart';
 
 import '../../app_exceptions.dart';
 import 'base_api_services.dart';
@@ -28,6 +29,7 @@ class NetworkApiServices{
       final response = await http.post(Uri.parse(url),
       body: body,
         headers: {
+        HttpHeaders.contentTypeHeader :'application/json',
         HttpHeaders.authorizationHeader : 'Bearer ywoCe86M0drbjilyZfhtMkQeO2lUw5Yp',
         },
       );

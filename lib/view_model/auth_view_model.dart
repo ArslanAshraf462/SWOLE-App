@@ -2,13 +2,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:swole_app/core/network/api/network_api_services.dart';
 import 'package:swole_app/core/network/app_url.dart';
-import 'package:swole_app/services/auth_services.dart';
 import 'package:swole_app/ui/utils/toasts/toast.dart';
 import '../core/network/api/response/api_model.dart';
 import '../routes/routes_name.dart';
 
 class AuthViewModel with ChangeNotifier{
-  final _myRepo = NetworkApiServices();
+  final _service = NetworkApiServices();
 
   bool _loading = false;
   bool _signUpLoading = false;
@@ -27,12 +26,23 @@ class AuthViewModel with ChangeNotifier{
     notifyListeners();
   }
 
-  Future<void> loginApi(dynamic data, BuildContext context) async{
+  Future<void> loginApi({required String email,
+  required String password,required BuildContext context}) async{
     setLoading(true);
-    _myRepo.getPostApiResponse(url: AppUrl.loginEndPoint).then((value){
+    _service.getPostApiResponse(
+        url: AppUrl.loginEndPoint,
+        modelName: ApiModels.login,
+        body: {
+          'email':'jawad@gmail.com',
+          'password':'11111111',
+          'role' : "a1953075-c13d-4a4c-997f-396a6a54649e",
+          'access_token' : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImU5MTdmN2I3LTE0MGItNDQ0ZC1iZmM5LWVjZGRiMWQ1NmEyZiIsInJvbGUiOiJhMTk1MzA3NS1jMTNkLTRhNGMtOTk3Zi0zOTZhNmE1NDY0OWUiLCJhcHBfYWNjZXNzIjp0cnVlLCJhZG1pbl9hY2Nlc3MiOmZhbHNlLCJpYXQiOjE2NzE3Nzc1MjYsImV4cCI6MTY3MTc3ODQyNiwiaXNzIjoiZGlyZWN0dXMifQ.QLg7sz7XPOlepv6H8nSWUBGnOhW9_eEdZZg-9h_ZFg0",
+          "refresh_token": "5xGxlDJsTNN7nVz5tFioxJVmOjHInd3YKtsyuB32l1mX-rOPASn8plss7xc3T7Ex"
+        }
+    ).then((value){
       setLoading(false);
       ToastUtils.flushBarErrorMessage('Login Successfully', context);
-      Navigator.pushNamed(context, RoutesName.home);
+      Navigator.pushNamed(context, RoutesName.resetPasswordScreen);
       if(kDebugMode) {
         print(value.toString());
       }
@@ -50,7 +60,7 @@ class AuthViewModel with ChangeNotifier{
   Future<void> signUpApi({required String email,
     required String password,required BuildContext context}) async{
     setSignUpLoading(true);
-    _myRepo.getPostApiResponse(
+    _service.getPostApiResponse(
         url: AppUrl.signupEndPoint,
         modelName: ApiModels.user,
         body: {
