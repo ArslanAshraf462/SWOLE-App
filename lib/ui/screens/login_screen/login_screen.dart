@@ -106,10 +106,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: ButtonWidget(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        authViewModel.loginApi(
-                            email: emailController.text.toString(),
-                            password: passwordController.text.toString(),
-                            context: context);
                         if (kDebugMode) {
                           print(emailController.text);
                         }

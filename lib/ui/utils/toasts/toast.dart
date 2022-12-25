@@ -7,7 +7,38 @@ import 'package:swole_app/ui/widgets/text_widget.dart';
 
 import '../../../constants/colors.dart';
 
+
+enum ToastType { success, error, msg }
+
 class ToastUtils{
+
+  static void show(
+      String text,
+      ToastType type, {
+        dynamic toastLength = Toast.LENGTH_LONG,
+      }) {
+    Color? color;
+    Color? textColor;
+    if (type == ToastType.success) {
+      color = AppColors.appBlueColor;
+      textColor = AppColors.whiteColor;
+    }
+
+    if (type == ToastType.error) {
+      color = AppColors.redColor;
+      textColor = AppColors.whiteColor;
+    }
+
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: toastLength,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 2,
+      backgroundColor: color,
+      textColor: textColor,
+      fontSize: 16.0,
+    );
+  }
 
   static void fieldFocusChange(
       BuildContext context,

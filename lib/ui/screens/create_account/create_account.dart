@@ -204,8 +204,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         //   'password' : passwordController.text.toString(),
                         //   'role' : "a1953075-c13d-4a4c-997f-396a6a54649e",
                         // };
-                        authViewModel.signUpApi(
-                          context: context,
+                        authViewModel.signup(
                           email: emailController.text.toString(),
                           password: passwordController.text.toString(),
                         );
