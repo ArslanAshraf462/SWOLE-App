@@ -1,4 +1,5 @@
 class AppStrings{
+  static const String dateFormatText='MM/dd/yyyy';
 static const String continueAppleText='Continue With Apple';
 static const String continueFbText='Continue With Facebook';
 static const String continueGoogleText='Continue With Google';
@@ -44,4 +45,6 @@ static const String galleryText='Gallery';
 static const String emailText='email';
 static const String publicProfileText='public_profile';
 static const String userBirthdayText='user_birthday';
+static const String noRouteText='No route defined';
+static const String cropperText='Cropper';
 }

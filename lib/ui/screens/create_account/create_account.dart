@@ -1,25 +1,22 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/assets.dart';
 import 'package:swole_app/constants/colors.dart';
 import 'package:swole_app/constants/dimens.dart';
 import 'package:swole_app/ui/screens/create_account/components/checkbox_widget.dart';
-import 'package:swole_app/ui/utils/app_dialogs/dialogs.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
 import 'package:swole_app/ui/widgets/app_bar_widget.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
 import 'package:swole_app/ui/widgets/button_widget.dart';
 import 'package:swole_app/ui/widgets/text_form_field_widget.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
-
+import '../../utils/constants.dart';
+import '../../utils/utils_general/utils_general.dart';
 import '../../utils/validations/validation_utils.dart';
 import '../../widgets/date_button_widget.dart';
 import '../../widgets/icon_widget.dart';
 import '../../widgets/password_text_form_field.dart';
-import 'components/image_pick_option_widget.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
@@ -31,7 +28,7 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
-  late final TextEditingController dobController = TextEditingController();
+ // final TextEditingController dobController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   FocusNode nameFocusNode = FocusNode();
@@ -39,10 +36,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
   bool check = false;
-  DateTime? date;
+ final utilsGeneral=UtilsGeneral();
 
-  File? _image;
-  final ImagePicker _picker = ImagePicker();
 
   @override
   Widget build(BuildContext context) {
@@ -61,10 +56,10 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                UIHelper.verticalSpace(Dimens.size100),
+                UIHelper.verticalSpace(Dimens.size60),
                 GestureDetector(
-                  onTap: () => imagePickModelBottomSheet(context),
-                  child: _image == null
+                  onTap: () => utilsGeneral.imagePickModelBottomSheet(context),
+                  child: AppConstants.image == null
                       ? Container(
                           decoration: const BoxDecoration(
                             color: AppColors.textFieldColor,
@@ -81,8 +76,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                       : Container(
                           decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: FileImage(File(_image!.path)),
-                                fit: BoxFit.contain),
+                                image: FileImage(File(AppConstants.image!.path)),
+                                fit: BoxFit.cover),
                             shape: BoxShape.circle,
                             // border: Border.all(color: MyColors.primary)
                           ),
@@ -95,7 +90,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        UIHelper.verticalSpace(Dimens.size81),
+                        UIHelper.verticalSpace(Dimens.size60),
                         TextFormFieldWidget(
                           label: AppStrings.textFieldNameText,
                           textInputType: TextInputType.name,
@@ -106,7 +101,11 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           onFieldSubmit: (value) => FocusScope.of(context).requestFocus(emailFocusNode),
                         ),
                         UIHelper.verticalSpace(Dimens.size5),
-                        DateButtonWidget(title: getText()!, icon: Icons.calendar_today, onClicked: () =>pickDate(context),),
+                        DateButtonWidget(
+                          title: utilsGeneral.getText()!,
+                          icon: Icons.calendar_today,
+                          onClicked: () => utilsGeneral.pickDate(context),
+                        ),
                         // TextFormFieldWidget(
                         //   label: AppStrings.textFieldDOBText,
                         //   suffixIcon: InkWell(
@@ -142,7 +141,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           controller: passwordController,
                           focusNode: passFocusNode,
                         ),
-                        UIHelper.verticalSpace(Dimens.size20),
+                        UIHelper.verticalSpace(Dimens.size15),
                         Padding(
                           padding: EdgeInsets.only(left: screenSize.width * 0.04),
                           child: Row(
@@ -184,7 +183,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                         ),
                       ],
                     )),
-                UIHelper.verticalSpace(Dimens.size44),
+                UIHelper.verticalSpace(Dimens.size30),
                 ButtonWidget(
                   onPressed: () {
                     if (_formKey.currentState!.validate()) {
@@ -212,60 +211,5 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
         ),
       ),
     );
-  }
-  imagePickModelBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return ImagePickOptionWidget(
-          onCameraTap: () => _pickImg(ImageSource.camera),
-          onGalleryTap: () => _pickImg(ImageSource.gallery),
-        );
-      },);
-  }
-
-  void _pickImg(ImageSource source)async{
-    final imgPicker= await _picker.pickImage(source: source);
-    if (imgPicker != null) {
-      _image = File(imgPicker.path);
-      setState(() {});
-    } else {
-      AppDialogs.showAuthDialog(
-        context: context,
-        title: AppStrings.noImagePickedText,
-        body: AppStrings.galleryCheckText,
-        okBtnTitle: AppStrings.okText,
-        okBtnPressed: () => Navigator.pop(context),
-      );
-    }
-  }
-
-  Future pickDate(BuildContext context) async {
-    final initialDate = DateTime.now();
-    final newDate = await showDatePicker(
-        context: context,
-        initialDate: date ?? initialDate,
-        firstDate: DateTime(DateTime.now().year - 5),
-        lastDate: DateTime(DateTime.now().year + 5));
-    if (newDate == null) return;
-    setState(() {
-      date = newDate;
-    });
-    if (newDate != null) {
-      date = newDate;
-      dobController
-        ..text = DateFormat.yMMMd().format(date!)
-        ..selection = TextSelection.fromPosition(TextPosition(
-            offset: dobController.text.length,
-            affinity: TextAffinity.upstream));
-    }
-  }
-
-  String? getText() {
-    if (date == null) {
-      return AppStrings.textFieldDOBText;
-    } else {
-      return DateFormat('MM/dd/yyyy').format(date!);
-    }
   }
 }

@@ -16,7 +16,7 @@ class ImagePickOptionWidget extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20.0),
       color: AppColors.textFieldColor,
-      height: 160,
+      height: 130,
       width: double.infinity,
       child: Column(crossAxisAlignment: CrossAxisAlignment.start,
         children: [

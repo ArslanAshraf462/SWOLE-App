@@ -9,6 +9,7 @@ import '../../../constants/colors.dart';
 import '../../../constants/dimens.dart';
 import '../../utils/app_dialogs/dialogs.dart';
 import '../../utils/ui_helper/ui_helper.dart';
+import '../../utils/utils_general/utils_general.dart';
 import '../../utils/validations/validation_utils.dart';
 import '../../widgets/button_widget.dart';
 import '../../widgets/password_text_form_field.dart';
@@ -26,9 +27,11 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController mailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
+  final utilsGeneral=UtilsGeneral();
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +90,31 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),),
                 UIHelper.verticalSpace(Dimens.size20),
                 GestureDetector(
-                  onTap: () => _showBottomSheetResetPassword(context),
+                  onTap: () => utilsGeneral.showBottomSheetResetPassword(
+                      context: context,
+                    child: ForgetPasswordEmailWidget(
+                      emailTextField: TextFormFieldWidget(
+                        label: AppStrings.yourEmailAddressText,
+                        textInputType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.done,
+                        validator: (value)=>ValidationUtils.validateEmail(value),
+                        controller: mailController,
+                      ),
+                      onSubmitTap: () {
+                        Navigator.pop(context);
+                        AppDialogs.showAuthDialog(
+                          context: context,
+                          title: AppStrings.checkEmailText,
+                          body: AppStrings.checkEmailBodyText,
+                          okBtnTitle: AppStrings.okText,
+                          okBtnPressed:() {
+                            Navigator.pop(context);
+                            Navigator.pushNamed(context, RoutesName.resetPasswordScreen);
+                          },
+                        );
+                      },
+                    ),
+                  ),
                   child: Padding(
                     padding: EdgeInsets.only(left: screenSize.width * 0.08),
                     child: const TextWidget(
@@ -123,43 +150,5 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
     );
-  }
-
-  _showBottomSheetResetPassword(BuildContext context) {
-    final TextEditingController mailController=TextEditingController();
-    return showModalBottomSheet(
-      //isDismissible: false,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-        ),
-        context: context,
-        builder: (builder) {
-          return ForgetPasswordEmailWidget(
-            emailTextField: TextFormFieldWidget(
-              label: AppStrings.yourEmailAddressText,
-              textInputType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.done,
-              validator: (value)=>ValidationUtils.validateEmail(value),
-              controller: mailController,
-            ),
-            onSubmitTap: () {
-              Navigator.pop(context);
-              AppDialogs.showAuthDialog(
-                context: context,
-                title: AppStrings.checkEmailText,
-                body: AppStrings.checkEmailBodyText,
-                okBtnTitle: AppStrings.okText,
-                okBtnPressed:() {
-                  Navigator.pop(context);
-                  Navigator.pushNamed(context, RoutesName.resetPasswordScreen);
-                },
-              );
-            },
-          );
-        });
   }
 }

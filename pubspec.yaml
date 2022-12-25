@@ -43,6 +43,7 @@ dependencies:
   http: ^0.13.5
   fluttertoast: ^8.1.2
   another_flushbar: ^1.12.29
+  image_cropper: ^3.0.1
   get: ^4.6.5
 
 dev_dependencies:
