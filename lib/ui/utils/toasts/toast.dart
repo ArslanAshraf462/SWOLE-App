@@ -13,7 +13,7 @@ enum ToastType { success, error, msg }
 class ToastUtils{
 
   static void show(
-      String text,
+      String? text,
       ToastType type, {
         dynamic toastLength = Toast.LENGTH_LONG,
       }) {
@@ -30,7 +30,7 @@ class ToastUtils{
     }
 
     Fluttertoast.showToast(
-      msg: text,
+      msg: text ?? 'null',
       toastLength: toastLength,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 2,

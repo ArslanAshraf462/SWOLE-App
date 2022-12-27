@@ -33,11 +33,10 @@ class CreateAccountScreen extends StatefulWidget {
 class _CreateAccountScreenState extends State<CreateAccountScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
-  late final TextEditingController dobController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   FocusNode nameFocusNode = FocusNode();
-  FocusNode dobFocusNode=FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
   bool check = false;
@@ -45,6 +44,19 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
   File? _image;
   final ImagePicker _picker = ImagePicker();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    dobController.dispose();
+    nameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passFocusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -199,16 +211,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           ),
                         );
                       }else{
-                        // Map data = {
-                        //   'email' : emailController.text.toString(),
-                        //   'password' : passwordController.text.toString(),
-                        //   'role' : "a1953075-c13d-4a4c-997f-396a6a54649e",
-                        // };
-                        authViewModel.signup(
-                          email: emailController.text.toString(),
-                          password: passwordController.text.toString(),
-                        );
-                        print('api hit');
+
                       }
                     }
                   },

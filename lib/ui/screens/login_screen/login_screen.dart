@@ -33,6 +33,16 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode passFocusNode = FocusNode();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    emailController.dispose();
+    passwordController.dispose();
+    emailFocusNode.dispose();
+    passFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final authViewModel = Provider.of<AuthViewModel>(context);
     final screenSize = MediaQuery

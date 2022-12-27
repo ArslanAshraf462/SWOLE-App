@@ -1,5 +1,5 @@
 class Errors {
-  String error;
+  String? error;
 
   Errors({
     required this.error,

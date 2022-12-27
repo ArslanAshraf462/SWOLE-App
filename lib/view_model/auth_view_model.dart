@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:swole_app/core/network/api/api_services.dart';
 import 'package:swole_app/core/network/app_url.dart';
 import 'package:swole_app/models/auth/signup.dart';
+import 'package:swole_app/routes/routes_name.dart';
+import '../constants/app_strings.dart';
 import '../core/network/api/api_model.dart';
+import '../ui/utils/toasts/toast.dart';
 class AuthViewModel with ChangeNotifier{
    Future<Signup?>? signup({
+     required BuildContext context,
     required String email,
     required String password,
   }) async {
-    return await ApiServices.callPostApi(
+     Signup? user = await ApiServices.callPostApi(
       url: AppUrl.signupEndPoint,
       params: {
         "email": email,
@@ -18,6 +22,15 @@ class AuthViewModel with ChangeNotifier{
       },
       modelName: ApiModels.user,
     );
+    if (user != null) {
+      ToastUtils.show(
+        AppStrings.textSuccessLogin,
+        ToastType.success,
+      );
+      Navigator.pushReplacementNamed(context, RoutesName.login);
+    } else {
+      debugPrint(null);
+    }
   }
 }
 

@@ -44,6 +44,8 @@ static const String galleryText='Gallery';
 static const String emailText='email';
 static const String publicProfileText='public_profile';
 static const String userBirthdayText='user_birthday';
+static const String textSuccessLogin = "Login successfully";
+static const String textSuccessRegistered = "Registered successfully";
 
 /// dio exceptions
 static const String textCanceledRequest = "Request is canceled";

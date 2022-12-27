@@ -22,7 +22,9 @@ class ApiServices{
       BaseOptions options = BaseOptions(
         baseUrl: AppUrl.baseUrl,
         contentType: 'application/json',
-        headers: {},
+        headers: {
+         'Authorization' :  AppUrl.token,
+        },
       );
       Dio dio = Dio(options);
       Response response = await dio.post(
@@ -42,7 +44,7 @@ class ApiServices{
       if (er.response != null) {
         Errors errorResponse = ApiModels.getModelObjects(
           ApiModels.errorModel,
-          er.response!.data,
+          er.response?.data,
         );
         ToastUtils.show(errorResponse.error, ToastType.error);
         return null;
