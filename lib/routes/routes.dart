@@ -12,13 +12,13 @@ class Routes{
   static Route<dynamic> generateRoute(RouteSettings settings){
     switch(settings.name){
       case RoutesName.splash:
-        return MaterialPageRoute(builder: (context) => SplashScreen(),);
+        return MaterialPageRoute(builder: (context) => const SplashScreen(),);
       case RoutesName.signup:
-        return MaterialPageRoute(builder: (context) => CreateAccountScreen(),);
+        return MaterialPageRoute(builder: (context) => const CreateAccountScreen(),);
       case RoutesName.login:
-        return MaterialPageRoute(builder: (context) => LoginScreen(),);
+        return MaterialPageRoute(builder: (context) => const LoginScreen(),);
       case RoutesName.resetPasswordScreen:
-        return MaterialPageRoute(builder: (context) => ResetPassword(),);
+        return MaterialPageRoute(builder: (context) => const ResetPassword(),);
       case RoutesName.welcomeScreen:
         return MaterialPageRoute(builder: (context) => const WelcomeScreen(),);
       default:

@@ -13,6 +13,7 @@ class AuthViewModel with ChangeNotifier{
     required String email,
     required String password,
   }) async {
+     NavigatorState navigatorState=Navigator.of(context);
      Signup? user = await ApiServices.callPostApi(
       url: AppUrl.signupEndPoint,
       params: {
@@ -27,7 +28,7 @@ class AuthViewModel with ChangeNotifier{
         AppStrings.textSuccessLogin,
         ToastType.success,
       );
-      Navigator.pushReplacementNamed(context, RoutesName.login);
+      navigatorState.pushReplacementNamed(RoutesName.login);
     } else {
       debugPrint(null);
     }
