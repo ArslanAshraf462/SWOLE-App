@@ -20,8 +20,8 @@ class DateButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
-    return TextButton(
-      onPressed: onClicked,
+    return GestureDetector(
+      onTap: onClicked,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),

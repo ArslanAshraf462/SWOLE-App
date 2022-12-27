@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
 
 import '../../constants/colors.dart';

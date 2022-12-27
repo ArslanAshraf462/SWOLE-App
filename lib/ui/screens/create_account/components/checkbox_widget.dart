@@ -20,7 +20,7 @@ class _CheckBoxWidgetState extends State<CheckBoxWidget> {
             isChecked = value;
           });
         },
-        fillColor: MaterialStateProperty.all(AppColors.textTextFieldColor),
+        fillColor: MaterialStateProperty.all(AppColors.appBlueColor),
         overlayColor: MaterialStateProperty.all(AppColors.textFieldColor),
         //checkColor: AppColors.textTextFieldColor,
         //activeColor: AppColors.textFieldInputColor,
