@@ -47,4 +47,22 @@ static const String publicProfileText='public_profile';
 static const String userBirthdayText='user_birthday';
 static const String noRouteText='No route defined';
 static const String cropperText='Cropper';
+static const String textSuccessLogin = "Login successfully";
+static const String textSuccessRegistered = "Registered successfully";
+
+/// dio exceptions
+static const String textCanceledRequest = "Request is canceled";
+static const String textRequestTimeOut = "Request Timeout";
+static const String textSendingTimeOut = "Request sending Timeout";
+static const String textReceivingTimeOut = "Request is not received by the server";
+static const String textCheckNetwork = "check your Network connection";
+static const String textUndefinedError = "Error is undefined";
+static const String textSomethingWentWrong = "Something went wrong";
+static const String textInvalidData = "Invalid data";
+static const String textUnauthorized = "Unauthorized";
+static const String textErrorForbidden = "Error Forbidden";
+static const String textErrorInternalServer = "Internal server Error";
+static const String textErrorBadRequest = "Url Not found";
+static const String messageText = "message";
+static const String socketText = "SocketException";
 }

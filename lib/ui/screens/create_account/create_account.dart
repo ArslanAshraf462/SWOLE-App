@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/constants/assets.dart';
 import 'package:swole_app/constants/colors.dart';
@@ -13,26 +14,29 @@ import 'package:swole_app/ui/widgets/text_form_field_widget.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
 import '../../utils/constants.dart';
 import '../../utils/utils_general/utils_general.dart';
+import '../../../view_model/auth_view_model.dart';
 import '../../utils/validations/validation_utils.dart';
 import '../../widgets/date_button_widget.dart';
 import '../../widgets/icon_widget.dart';
 import '../../widgets/password_text_form_field.dart';
+import 'components/date_picker_widget.dart';
+import 'components/image_picker_widget.dart';
 
 class CreateAccountScreen extends StatefulWidget {
   const CreateAccountScreen({Key? key}) : super(key: key);
 
   @override
-  State<CreateAccountScreen> createState() => _CreateAccountScreenState();
+  State<CreateAccountScreen> createState() => CreateAccountScreenState();
 }
 
-class _CreateAccountScreenState extends State<CreateAccountScreen> {
+class CreateAccountScreenState extends State<CreateAccountScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
  // final TextEditingController dobController = TextEditingController();
+  final TextEditingController dobController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   FocusNode nameFocusNode = FocusNode();
-  FocusNode dobFocusNode=FocusNode();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
   bool check = false;
@@ -40,7 +44,21 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
 
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    dobController.dispose();
+    nameFocusNode.dispose();
+    emailFocusNode.dispose();
+    passFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
     final screenSize = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: () => Future.value(false),
@@ -57,34 +75,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
             child: Column(
               children: [
                 UIHelper.verticalSpace(Dimens.size60),
-                GestureDetector(
-                  onTap: () => utilsGeneral.imagePickModelBottomSheet(context),
-                  child: AppConstants.image == null
-                      ? Container(
-                          decoration: const BoxDecoration(
-                            color: AppColors.textFieldColor,
-                            shape: BoxShape.circle,
-                          ),
-                          height: screenSize.height * 0.17,
-                          width: screenSize.width * 0.4,
-                          child: const IconWidget(
-                            icon: Icons.image_outlined,
-                            color: AppColors.whiteColor,
-                            size: Dimens.size40,
-                          ),
-                        )
-                      : Container(
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: FileImage(File(AppConstants.image!.path)),
-                                fit: BoxFit.cover),
-                            shape: BoxShape.circle,
-                            // border: Border.all(color: MyColors.primary)
-                          ),
-                          height: screenSize.height * 0.17,
-                          width: screenSize.width * 0.4,
-                        ),
-                ),
+                const ImagePickerWidget(),
                 Form(
                     key: _formKey,
                     child: Column(
@@ -101,11 +92,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           onFieldSubmit: (value) => FocusScope.of(context).requestFocus(emailFocusNode),
                         ),
                         UIHelper.verticalSpace(Dimens.size5),
-                        DateButtonWidget(
-                          title: utilsGeneral.getText()!,
-                          icon: Icons.calendar_today,
-                          onClicked: () => utilsGeneral.pickDate(context),
-                        ),
+                        const DatePickerWidget(),
                         // TextFormFieldWidget(
                         //   label: AppStrings.textFieldDOBText,
                         //   suffixIcon: InkWell(
@@ -132,7 +119,7 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                           focusNode: emailFocusNode,
                           onFieldSubmit: (value) => FocusScope.of(context).requestFocus(passFocusNode),
                         ),
-                        UIHelper.verticalSpace(Dimens.size15),
+                        UIHelper.verticalSpace(Dimens.size5),
                         PasswordTextFormFieldWidget(
                           label: AppStrings.textFieldPasswordText,
                           textInputType: TextInputType.text,
@@ -194,6 +181,8 @@ class _CreateAccountScreenState extends State<CreateAccountScreen> {
                             duration: Duration(seconds: 3),
                           ),
                         );
+                      }else{
+
                       }
                     }
                   },

@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/ui/widgets/app_bar_widget.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
@@ -7,6 +8,7 @@ import '../../../constants/app_strings.dart';
 import '../../../constants/assets.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/dimens.dart';
+import '../../../view_model/auth_view_model.dart';
 import '../../utils/app_dialogs/dialogs.dart';
 import '../../utils/ui_helper/ui_helper.dart';
 import '../../utils/utils_general/utils_general.dart';
@@ -34,7 +36,19 @@ class _LoginScreenState extends State<LoginScreen> {
   final utilsGeneral=UtilsGeneral();
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    emailController.dispose();
+    passwordController.dispose();
+    mailController.dispose();
+    emailFocusNode.dispose();
+    passFocusNode.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final authViewModel = Provider.of<AuthViewModel>(context);
     final screenSize = MediaQuery
         .of(context)
         .size;
@@ -100,19 +114,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         validator: (value)=>ValidationUtils.validateEmail(value),
                         controller: mailController,
                       ),
-                      onSubmitTap: () {
-                        Navigator.pop(context);
-                        AppDialogs.showAuthDialog(
-                          context: context,
-                          title: AppStrings.checkEmailText,
-                          body: AppStrings.checkEmailBodyText,
-                          okBtnTitle: AppStrings.okText,
-                          okBtnPressed:() {
-                            Navigator.pop(context);
-                            Navigator.pushNamed(context, RoutesName.resetPasswordScreen);
-                          },
-                        );
-                      },
+                      // onSubmitTap: () {
+                      //   Navigator.pop(context);
+                      //   AppDialogs.showAuthDialog(
+                      //     context: context,
+                      //     title: AppStrings.checkEmailText,
+                      //     body: AppStrings.checkEmailBodyText,
+                      //     okBtnTitle: AppStrings.okText,
+                      //     okBtnPressed:() {
+                      //       Navigator.pop(context);
+                      //       Navigator.pushNamed(context, RoutesName.resetPasswordScreen);
+                      //     },
+                      //   );
+                      // },
                     ),
                   ),
                   child: Padding(

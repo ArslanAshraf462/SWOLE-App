@@ -14,7 +14,7 @@ class ValidationUtils{
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
     if (text == null || text.isEmpty) {
       return AppStrings.emptyEmailText;
-    } else if (regex.hasMatch(text)) {
+    } else if (!regex.hasMatch(text)) {
       return AppStrings.emailValidateText;
     }
     return null;

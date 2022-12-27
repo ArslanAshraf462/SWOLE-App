@@ -45,6 +45,8 @@ dependencies:
   another_flushbar: ^1.12.29
   image_cropper: ^3.0.1
   get: ^4.6.5
+  provider: ^6.0.5
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:
