@@ -27,9 +27,6 @@ class ApiServices{
         headers: {
          'Authorization' :  AppUrl.token,
         },
-        // connectTimeout: AppUrl.networkTimeout,
-        // receiveTimeout: AppUrl.networkTimeout,
-        // sendTimeout: AppUrl.networkTimeout,
       );
       Dio dio = Dio(options);
       Response response = await dio.post(
@@ -69,62 +66,5 @@ class ApiServices{
       return null;
     }
   }
-
-
-
-//
-  // @override
-  // Future getGetApiResponse(String url,Map<String, String>? headers,dynamic modelName,) async{
-  //   dynamic responseJson;
-  //  try{
-  //    final response = await http.get(Uri.parse(url)).timeout(const Duration(seconds: 10));
-  //    responseJson = returnResponse(response,modelName);
-  //  }on SocketException{
-  //    throw FetchDataException('No Internet Connection');
-  //  }
-  //
-  //  return responseJson;
-  // }
-  //
-  // @override
-  // Future getPostApiResponse({required String url,dynamic body,dynamic modelName,}) async {
-  //   dynamic responseJson;
-  //   try{
-  //     final response = await http.post(Uri.parse(url),
-  //     body: body,
-  //       headers: {
-  //       HttpHeaders.contentTypeHeader :'application/json',
-  //       HttpHeaders.authorizationHeader : 'Bearer ywoCe86M0drbjilyZfhtMkQeO2lUw5Yp',
-  //       },
-  //     );
-  //     responseJson = returnResponse(response,modelName);
-  //   }on SocketException{
-  //     throw FetchDataException('No Internet Connection');
-  //   }
-  //   return responseJson;
-  // }
-  //
-  // dynamic returnResponse(Response response,dynamic modelName) async{
-  //   switch(response.statusCode){
-  //     case 200:
-  //       var data = jsonDecode(response.body.toString());
-  //       dynamic modelObj =
-  //           await ApiModels.getModelObjects(modelName, data);
-  //       return modelObj;
-  //       // dynamic responseJson = json.decode(response.body);
-  //       // return responseJson;
-  //     case 201:
-  //       var data = jsonDecode(response.body.toString());
-  //       dynamic modelObj =
-  //       await ApiModels.getModelObjects(modelName, data);
-  //       return modelObj;
-  //     case 400:
-  //       throw BadRequestException(response.body.toString());
-  //     case 404:
-  //       throw UnauthorisedException(response.body.toString());
-  //     default:
-  //       throw FetchDataException('Error accorded while communicating with status code${response.statusCode}');
-  //   }
-  // }
 
 }

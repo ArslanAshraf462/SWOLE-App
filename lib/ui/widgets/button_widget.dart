@@ -41,7 +41,7 @@ class ButtonWidget extends StatelessWidget {
         child: Row(
           children: [
             insertIcon ?
-            UIHelper.horizontalSpace(19)
+            UIHelper.horizontalSpace(screenSize.width * 0.04)
              :SizedBox(
               width: leftWidth,
             ),

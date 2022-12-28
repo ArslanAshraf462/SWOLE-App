@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +12,9 @@ import 'package:swole_app/ui/widgets/background_image_widget.dart';
 import 'package:swole_app/ui/widgets/button_widget.dart';
 import 'package:swole_app/ui/widgets/text_form_field_widget.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
-import '../../utils/constants.dart';
 import '../../utils/utils_general/utils_general.dart';
 import '../../../view_model/auth_view_model.dart';
 import '../../utils/validations/validation_utils.dart';
-import '../../widgets/date_button_widget.dart';
-import '../../widgets/icon_widget.dart';
 import '../../widgets/password_text_form_field.dart';
 import 'components/date_picker_widget.dart';
 import 'components/image_picker_widget.dart';

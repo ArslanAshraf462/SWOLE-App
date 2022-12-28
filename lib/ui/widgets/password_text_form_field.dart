@@ -83,6 +83,8 @@ class _PasswordTextFormFieldWidgetState extends State<PasswordTextFormFieldWidge
               enabledBorder: InputBorder.none,
               errorBorder: InputBorder.none,
               disabledBorder: InputBorder.none,
+              //isDense: true,
+              contentPadding: const EdgeInsets.only(top: 20),
             ),
             style: const TextStyle(
               color: AppColors.textFieldInputColor,
