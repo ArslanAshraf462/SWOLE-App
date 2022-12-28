@@ -7,7 +7,7 @@ class ApiModels {
   static const String user = "USER";
   static const String login = "LOGIN";
   static const String errorModel = "error model";
-  static dynamic getModelObjects(String modelName, dynamic json) {
+  static dynamic getModelObjects(String modelName, Map<String,dynamic> json) {
     switch (modelName) {
       case user:
         return Signup.fromJson(json);

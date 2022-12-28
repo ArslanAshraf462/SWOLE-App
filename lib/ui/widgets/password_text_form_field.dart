@@ -52,12 +52,18 @@ class _PasswordTextFormFieldWidgetState extends State<PasswordTextFormFieldWidge
             controller: widget.controller,
             validator: widget.validator,
             decoration: InputDecoration(
-              label: TextWidget(title: widget.label),
-              labelStyle: const TextStyle(
+              hintText: widget.label,
+              hintStyle: const TextStyle(
                 fontWeight: FontWeight.w400,
                 color: AppColors.textTextFieldColor,
-                fontSize: 14,
+               // fontSize: 14,
               ),
+              //label: TextWidget(title: widget.label),
+              // labelStyle: const TextStyle(
+              //   fontWeight: FontWeight.w400,
+              //   color: AppColors.textTextFieldColor,
+              //   fontSize: 14,
+              // ),
               suffixIcon: InkWell(
                 onTap: () {
                   setState(() {

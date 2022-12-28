@@ -4,7 +4,7 @@ import 'package:swole_app/constants/app_strings.dart';
 class ValidationUtils{
   static String? validateField(String? text) {
     if (text == null || text.isEmpty) {
-      return AppStrings.nameValidateText;
+      return AppStrings.requiredValidateText;
     }
     return null;
   }
@@ -13,7 +13,7 @@ class ValidationUtils{
     final RegExp regex = RegExp(
         r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
     if (text == null || text.isEmpty) {
-      return AppStrings.emptyEmailText;
+      return AppStrings.requiredValidateText;
     } else if (!regex.hasMatch(text)) {
       return AppStrings.emailValidateText;
     }
@@ -29,7 +29,7 @@ class ValidationUtils{
 
   static String? validatePassword(String? text) {
     if (text == null || text.isEmpty) {
-      return AppStrings.emptyPasswordText;
+      return AppStrings.requiredValidateText;
     } else if (text.length < 8) {
       return AppStrings.passwordValidateText;
     }
@@ -37,7 +37,7 @@ class ValidationUtils{
   }
   static String? isCnfrmPasswordValid(String val,TextEditingController pass) {
     if (val.isEmpty) {
-      return AppStrings.emptyConPasswordText;
+      return AppStrings.requiredValidateText;
     }else if(val!=pass.text){
       return AppStrings.validateConPasswordText;
     }

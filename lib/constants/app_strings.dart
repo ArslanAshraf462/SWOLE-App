@@ -29,6 +29,7 @@ static const String okText='OK';
 static const String passwordSetTitleText='New Password Set!';
 static const String passwordSetBodyText='Your password successfully changed, go back to login to continue.';
 static const String nameValidateText='Name field is empty';
+static const String requiredValidateText='*required';
 static const String emptyEmailText='Email field is empty';
 static const String emailValidateText='Please enter valid email';
 static const String dateValidateText='Date field is empty';
@@ -48,6 +49,7 @@ static const String userBirthdayText='user_birthday';
 static const String noRouteText='No route defined';
 static const String cropperText='Cropper';
 static const String textSuccessLogin = "Login successfully";
+static const String textSuccessRegister = "Register successfully";
 static const String textSuccessRegistered = "Registered successfully";
 
 /// dio exceptions
@@ -65,4 +67,5 @@ static const String textErrorInternalServer = "Internal server Error";
 static const String textErrorBadRequest = "Url Not found";
 static const String messageText = "message";
 static const String socketText = "SocketException";
+static const String requestText = "Request can't reach to the http server";
 }

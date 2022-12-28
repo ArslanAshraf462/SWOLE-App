@@ -17,9 +17,9 @@ class Signin {
 }
 
 class Data {
-  String? accessToken;
+  dynamic accessToken;
   int? expires;
-  String? refreshToken;
+  dynamic refreshToken;
 
   Data({this.accessToken, this.expires, this.refreshToken});
 

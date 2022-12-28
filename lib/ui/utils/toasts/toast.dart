@@ -2,6 +2,7 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:another_flushbar/flushbar_route.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/ui/widgets/icon_widget.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
 
@@ -13,7 +14,7 @@ enum ToastType { success, error, msg }
 class ToastUtils{
 
   static void show(
-      String? text,
+      String text,
       ToastType type, {
         dynamic toastLength = Toast.LENGTH_LONG,
       }) {
@@ -30,7 +31,7 @@ class ToastUtils{
     }
 
     Fluttertoast.showToast(
-      msg: text ?? 'null',
+      msg: text,
       toastLength: toastLength,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 2,

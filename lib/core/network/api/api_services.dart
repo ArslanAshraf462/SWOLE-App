@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'package:swole_app/core/network/api/api_model.dart';
@@ -25,6 +27,9 @@ class ApiServices{
         headers: {
          'Authorization' :  AppUrl.token,
         },
+        // connectTimeout: AppUrl.networkTimeout,
+        // receiveTimeout: AppUrl.networkTimeout,
+        // sendTimeout: AppUrl.networkTimeout,
       );
       Dio dio = Dio(options);
       Response response = await dio.post(
@@ -34,22 +39,26 @@ class ApiServices{
         queryParameters: params,
       );
       if (response.statusCode == 200 || response.statusCode == 201) {
-        var modelObject = ApiModels.getModelObjects(
+        dynamic modelObject = await ApiModels.getModelObjects(
           modelName,
           response.data,
         );
+        debugPrint(response.data.toString());
         return modelObject;
       }
+      return null;
     } on DioError catch (er) {
       if (er.response != null) {
         Errors errorResponse = ApiModels.getModelObjects(
           ApiModels.errorModel,
-          er.response?.data,
+          json.decode(er.response?.data),
         );
-        ToastUtils.show(errorResponse.error, ToastType.error);
+        ToastUtils.show(errorResponse.error.toString(), ToastType.error);
+        debugPrint("error :${errorResponse.error}");
         return null;
       } else {
         DioExceptions.fromDioException(er);
+        debugPrint(er.toString());
         return null;
       }
     } on Exception {

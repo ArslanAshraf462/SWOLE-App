@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:swole_app/constants/app_strings.dart';
@@ -182,7 +183,14 @@ class CreateAccountScreenState extends State<CreateAccountScreen> {
                           ),
                         );
                       }else{
-
+                        authViewModel.signup(
+                          context: context,
+                          email: emailController.text.trim().toString(),
+                          password: passwordController.text.trim().toString(),
+                        );
+                        if (kDebugMode) {
+                          print('api hit');
+                        }
                       }
                     }
                   },

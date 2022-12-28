@@ -51,13 +51,18 @@ class TextFormFieldWidget extends StatelessWidget {
             controller: controller,
             validator: validator,
             decoration: InputDecoration(
-              label: TextWidget(title: label),
-              hintText: hintText,
-              labelStyle: const TextStyle(
+              hintText: label,
+              hintStyle: const TextStyle(
                 fontWeight: FontWeight.w400,
                 color: AppColors.textTextFieldColor,
-                fontSize: 14,
+               // fontSize: 14,
               ),
+              // label: TextWidget(title: label),
+              // labelStyle: const TextStyle(
+              //   fontWeight: FontWeight.w400,
+              //   color: AppColors.textTextFieldColor,
+              //   fontSize: 14,
+              // ),
               suffixIcon: suffixIcon,
               border: InputBorder.none,
               focusedBorder: InputBorder.none,

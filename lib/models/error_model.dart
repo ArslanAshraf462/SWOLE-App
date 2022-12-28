@@ -1,11 +1,11 @@
 class Errors {
-  String? error;
+  dynamic error;
 
   Errors({
     required this.error,
   });
 
-  factory Errors.fromJson(dynamic jsonData) {
+  factory Errors.fromJson(Map<String,dynamic> jsonData) {
     return Errors(
       error: jsonData["error"],
     );
