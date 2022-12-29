@@ -51,6 +51,7 @@ static const String cropperText='Cropper';
 static const String textSuccessLogin = "Login successfully";
 static const String textSuccessRegister = "Register successfully";
 static const String textSuccessRegistered = "Registered successfully";
+static const String currentUserTitleText = "Current User";
 
 /// dio exceptions
 static const String textCanceledRequest = "Request is canceled";

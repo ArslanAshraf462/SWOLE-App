@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:swole_app/constants/app_strings.dart';
 import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/ui/screens/create_account/create_account.dart';
+import 'package:swole_app/ui/screens/current_user/current_user.dart';
 import 'package:swole_app/ui/screens/login_screen/login_screen.dart';
 import 'package:swole_app/ui/screens/reset_password/reset_password.dart';
 import 'package:swole_app/ui/widgets/text_widget.dart';
@@ -21,6 +22,8 @@ class Routes{
         return MaterialPageRoute(builder: (context) => const ResetPassword(),);
       case RoutesName.welcomeScreen:
         return MaterialPageRoute(builder: (context) => const WelcomeScreen(),);
+      case RoutesName.currentUserScreen:
+        return MaterialPageRoute(builder: (context) => const CurrentUserScreen(),);
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

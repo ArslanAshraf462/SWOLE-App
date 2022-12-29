@@ -3,14 +3,16 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:swole_app/routes/routes.dart';
 import 'package:swole_app/routes/routes_name.dart';
+import 'package:swole_app/service/service.dart';
 import 'package:swole_app/view_model/auth_view_model.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  await setupLocator();
   runApp(const MyApp());
 }
 
