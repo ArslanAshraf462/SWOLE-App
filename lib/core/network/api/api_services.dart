@@ -75,9 +75,6 @@ class ApiServices{
         Map<String, dynamic>? parameters,
         Map<String, dynamic>? headers,
         dynamic modelName,
-        bool cache = false,
-        String? cacheBoxName,
-        bool showToast = true,
         String baseUrl = AppUrl.baseUrl,
         }) async {
     try {

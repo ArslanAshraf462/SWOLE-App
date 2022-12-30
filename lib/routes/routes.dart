@@ -23,7 +23,7 @@ class Routes{
       case RoutesName.welcomeScreen:
         return MaterialPageRoute(builder: (context) => const WelcomeScreen(),);
       case RoutesName.currentUserScreen:
-        return MaterialPageRoute(builder: (context) => const CurrentUserScreen(),);
+        return MaterialPageRoute(builder: (context) => CurrentUserScreen(),);
       default:
         return MaterialPageRoute(builder: (_) {
           return const Scaffold(

@@ -8,13 +8,21 @@ import 'package:swole_app/models/auth/signin.dart';
 import 'package:swole_app/models/auth/signup.dart';
 import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/service/service.dart';
+import 'package:swole_app/ui/utils/app_dialogs/dialogs.dart';
 import '../constants/app_strings.dart';
 import '../core/network/api/api_model.dart';
 import '../models/auth/current_user.dart';
 import '../ui/utils/toasts/toast.dart';
 class AuthViewModel with ChangeNotifier {
-  CurrentUser? _user;
-  CurrentUser? get user => _user;
+  CurrentUser? _users;
+
+  CurrentUser? get users => _users;
+
+  set users(CurrentUser? value) {
+    _users = value;
+    notifyListeners();
+  }
+
   Future<Signup?>? signup({
     required BuildContext context,
     required String email,
@@ -66,12 +74,44 @@ class AuthViewModel with ChangeNotifier {
       debugPrint(null);
     }
   }
-  Future<CurrentUser?>? currentUser() async{
-     _user = await ApiServices.callGetApi(
+  Future<CurrentUser?>? currentUser(BuildContext context) async{
+     NavigatorState navigatorState=Navigator.of(context);
+     _users = await ApiServices.callGetApi(
         url: AppUrl.currentUserEndPoint,
     modelName: ApiModels.currentUserModel,
     );
-    debugPrint("current user email -> ${_user?.data?.email.toString()}");
+    debugPrint("current user email -> ${_users?.data?.email.toString()}");
+
+    if(_users == null){
+      AppDialogs.showAuthDialog(
+        context: context,
+        title: AppStrings.currentUserSessionText,
+        body: AppStrings.currentUserSessionBodyText,
+        okBtnTitle: AppStrings.okText,
+        okBtnPressed: () => navigatorState.pushReplacementNamed(RoutesName.login),);
+     }
+     users =_users;
+     // if(users == null){
+     //   AppDialogs.showAuthDialog(
+     //     context: context,
+     //     title: AppStrings.currentUserSessionText,
+     //     body: AppStrings.currentUserSessionBodyText,
+     //     okBtnTitle: AppStrings.okText,
+     //     okBtnPressed: () => navigatorState.pushReplacementNamed(RoutesName.login),);
+     //  }
+    // notifyListeners();
     return null;
   }
+// sessionProvider(BuildContext context){
+//   NavigatorState navigatorState=Navigator.of(context);
+//   if(users == null){
+//     AppDialogs.showAuthDialog(
+//       context: context,
+//       title: AppStrings.currentUserSessionText,
+//       body: AppStrings.currentUserSessionBodyText,
+//       okBtnTitle: AppStrings.okText,
+//       okBtnPressed: () => navigatorState.pushReplacementNamed(RoutesName.login),);
+//     notifyListeners();
+//   }
+// }
 }

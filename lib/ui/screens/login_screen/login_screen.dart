@@ -147,7 +147,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           email: emailController.text.trim().toString(),
                           password: passwordController.text.trim().toString(),
                         );
-                        authViewModel.currentUser();
+                        //authViewModel.currentUser(context);
                         if (kDebugMode) {
                           print(emailController.text);
                         }

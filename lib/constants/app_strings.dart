@@ -52,6 +52,12 @@ static const String textSuccessLogin = "Login successfully";
 static const String textSuccessRegister = "Register successfully";
 static const String textSuccessRegistered = "Registered successfully";
 static const String currentUserTitleText = "Current User";
+static const String currentUserSessionText = "Current User Session";
+static const String currentUserSessionBodyText = "Current user session has been expired";
+static const String currentUserEmailText = "Email";
+static const String currentUserPasswordText = "Password";
+static const String currentUserStatusText = "Status";
+static const String currentUserAccessText = "Last Access";
 
 /// dio exceptions
 static const String textCanceledRequest = "Request is canceled";
