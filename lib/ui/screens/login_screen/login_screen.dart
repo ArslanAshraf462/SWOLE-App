@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:swole_app/ui/utils/constants.dart';
 import 'package:swole_app/ui/widgets/app_bar_widget.dart';
 import 'package:swole_app/ui/widgets/background_image_widget.dart';
 import '../../../constants/app_strings.dart';
@@ -8,6 +9,7 @@ import '../../../constants/assets.dart';
 import '../../../constants/colors.dart';
 import '../../../constants/dimens.dart';
 import '../../../view_model/auth_view_model.dart';
+import '../../utils/app_dialogs/dialogs.dart';
 import '../../utils/ui_helper/ui_helper.dart';
 import '../../utils/utils_general/utils_general.dart';
 import '../../utils/validations/validation_utils.dart';
@@ -32,6 +34,24 @@ class _LoginScreenState extends State<LoginScreen> {
   FocusNode emailFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
   final utilsGeneral=UtilsGeneral();
+  // @override
+  // void didChangeDependencies() {
+  //   // TODO: implement didChangeDependencies
+  //   super.didChangeDependencies();
+  //   Provider.of<AuthViewModel>(context,listen: false).resetPassword(email: mailController.text.trim().toString());
+  //   if(AppConstants.checkMailStatus==true){
+  //     AppDialogs.showAuthDialog(
+  //       //context: context,
+  //       title: AppStrings.checkEmailText,
+  //       body: AppStrings.checkEmailBodyText,
+  //       okBtnTitle: AppStrings.okText,
+  //       okBtnPressed: () {
+  //         Navigator.pop(context);
+  //
+  //       },
+  //     );
+  //   }
+  // }
 
   @override
   void dispose() {

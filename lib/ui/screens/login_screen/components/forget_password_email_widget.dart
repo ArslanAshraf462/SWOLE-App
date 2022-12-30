@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:swole_app/ui/utils/constants.dart';
 
 import '../../../../constants/app_strings.dart';
 import '../../../../constants/colors.dart';
@@ -94,17 +97,9 @@ class ForgetPasswordEmailWidget extends StatelessWidget {
 
   onSubmit() {
     if (_forgetFormKey.currentState!.validate()) {
-      Navigator.pop(ctx);
-      AppDialogs.showAuthDialog(
-        context: ctx,
-        title: AppStrings.checkEmailText,
-        body: AppStrings.checkEmailBodyText,
-        okBtnTitle: AppStrings.okText,
-        okBtnPressed: () {
-          Navigator.pop(ctx);
-          Navigator.pushNamed(ctx, RoutesName.resetPasswordScreen);
-        },
-      );
+      // Navigator.pop(ctx);
+      AppConstants.checkMailStatus=true;
+      Get.back();
     }
   }
 }

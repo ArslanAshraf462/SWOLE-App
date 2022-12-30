@@ -84,7 +84,7 @@ class AuthViewModel with ChangeNotifier {
 
     if(_users == null){
       AppDialogs.showAuthDialog(
-        context: context,
+       // context: context,
         title: AppStrings.currentUserSessionText,
         body: AppStrings.currentUserSessionBodyText,
         okBtnTitle: AppStrings.okText,
@@ -114,4 +114,12 @@ class AuthViewModel with ChangeNotifier {
 //     notifyListeners();
 //   }
 // }
+  Future resetPassword({required String email}) async{
+    await ApiServices.callPostApi(
+        url: AppUrl.resetPasswordEndPoint,
+    body: {
+          "email" : email,
+    }
+    );
+  }
 }

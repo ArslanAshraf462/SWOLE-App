@@ -3,6 +3,7 @@ class AppUrl{
   static const String signupEndPoint='users';
   static const String loginEndPoint='auth/login';
   static const String currentUserEndPoint='users/me';
+  static const String resetPasswordEndPoint='auth/password/request';
 
   /// Credentials
   static const String role="a1953075-c13d-4a4c-997f-396a6a54649e";

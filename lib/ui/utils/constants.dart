@@ -6,5 +6,6 @@ class AppConstants{
   static  File? image;
   static  ImagePicker picker = ImagePicker();
   static DateTime? date;
+  static bool checkMailStatus=false;
   //static TextEditingController dobController=TextEditingController();
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:swole_app/constants/dimens.dart';
 import 'package:swole_app/ui/utils/ui_helper/ui_helper.dart';
 
@@ -7,16 +8,14 @@ import '../../widgets/text_widget.dart';
 
 class AppDialogs {
   static void showAuthDialog(
-      {required BuildContext context,
+      {//required BuildContext context,
       required String title,
       required String body,
       required String okBtnTitle,
       //required String positiveBtnTitle,
-      required VoidCallback okBtnPressed}) {
-    showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return Dialog(
+      required VoidCallback okBtnPressed}) async{
+    await Get.dialog(
+           Dialog(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10.0)), //this right here
             child: Container(
@@ -67,8 +66,7 @@ class AppDialogs {
                 ),
               ),
             ),
-          );
-        });
-    ;
+          ),
+    );
   }
 }

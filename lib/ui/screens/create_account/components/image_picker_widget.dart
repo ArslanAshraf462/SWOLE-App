@@ -73,7 +73,7 @@ class _ImagePickerWidgetState extends State<ImagePickerWidget> {
 
     } else {
       AppDialogs.showAuthDialog(
-        context: context,
+       // context: context,
         title: AppStrings.noImagePickedText,
         body: AppStrings.galleryCheckText,
         okBtnTitle: AppStrings.okText,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:provider/provider.dart';
 import 'package:swole_app/routes/routes.dart';
 import 'package:swole_app/routes/routes_name.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_)=> AuthViewModel()),
       ],
-      child: const MaterialApp(
+      child: const GetMaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: RoutesName.splash,
         onGenerateRoute: Routes.generateRoute,

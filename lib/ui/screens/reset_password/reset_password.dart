@@ -79,7 +79,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       }
                       Navigator.pushNamed(context, RoutesName.login);
                       AppDialogs.showAuthDialog(
-                        context: context,
+                        //context: context,
                         title: AppStrings.passwordSetTitleText,
                         body: AppStrings.passwordSetBodyText,
                         okBtnTitle: AppStrings.okText,
