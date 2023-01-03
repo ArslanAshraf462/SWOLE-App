@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:swole_app/core/network/api/api_services.dart';
 import 'package:swole_app/core/network/app_url.dart';
 import 'package:swole_app/core/shared_prefrences/shared_prefs.dart';
@@ -8,10 +9,10 @@ import 'package:swole_app/models/auth/signin.dart';
 import 'package:swole_app/models/auth/signup.dart';
 import 'package:swole_app/routes/routes_name.dart';
 import 'package:swole_app/service/service.dart';
-import 'package:swole_app/ui/utils/app_dialogs/dialogs.dart';
 import '../constants/app_strings.dart';
 import '../core/network/api/api_model.dart';
 import '../models/auth/current_user.dart';
+import '../ui/utils/constants.dart';
 import '../ui/utils/toasts/toast.dart';
 class AuthViewModel with ChangeNotifier {
   CurrentUser? _users;
@@ -74,46 +75,20 @@ class AuthViewModel with ChangeNotifier {
       debugPrint(null);
     }
   }
-  Future<CurrentUser?>? currentUser(BuildContext context) async{
-     NavigatorState navigatorState=Navigator.of(context);
+  Future<CurrentUser?>? currentUser() async{
      _users = await ApiServices.callGetApi(
         url: AppUrl.currentUserEndPoint,
     modelName: ApiModels.currentUserModel,
     );
     debugPrint("current user email -> ${_users?.data?.email.toString()}");
 
-    if(_users == null){
-      AppDialogs.showAuthDialog(
-       // context: context,
-        title: AppStrings.currentUserSessionText,
-        body: AppStrings.currentUserSessionBodyText,
-        okBtnTitle: AppStrings.okText,
-        okBtnPressed: () => navigatorState.pushReplacementNamed(RoutesName.login),);
-     }
+     if(_users == null){
+       AppConstants.checkStatus=true;
+       Get.offAllNamed(RoutesName.login);
+      }
      users =_users;
-     // if(users == null){
-     //   AppDialogs.showAuthDialog(
-     //     context: context,
-     //     title: AppStrings.currentUserSessionText,
-     //     body: AppStrings.currentUserSessionBodyText,
-     //     okBtnTitle: AppStrings.okText,
-     //     okBtnPressed: () => navigatorState.pushReplacementNamed(RoutesName.login),);
-     //  }
-    // notifyListeners();
-    return null;
   }
-// sessionProvider(BuildContext context){
-//   NavigatorState navigatorState=Navigator.of(context);
-//   if(users == null){
-//     AppDialogs.showAuthDialog(
-//       context: context,
-//       title: AppStrings.currentUserSessionText,
-//       body: AppStrings.currentUserSessionBodyText,
-//       okBtnTitle: AppStrings.okText,
-//       okBtnPressed: () => navigatorState.pushReplacementNamed(RoutesName.login),);
-//     notifyListeners();
-//   }
-// }
+
   Future resetPassword({required String email}) async{
     await ApiServices.callPostApi(
         url: AppUrl.resetPasswordEndPoint,
@@ -121,5 +96,6 @@ class AuthViewModel with ChangeNotifier {
           "email" : email,
     }
     );
+    AppConstants.checkMailStatus=true;
   }
 }

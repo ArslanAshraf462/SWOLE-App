@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:swole_app/ui/utils/constants.dart';
 import 'package:swole_app/ui/widgets/app_bar_widget.dart';
@@ -29,36 +30,40 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
-  final TextEditingController mailController = TextEditingController();
+  // final TextEditingController mailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   FocusNode emailFocusNode = FocusNode();
   FocusNode passFocusNode = FocusNode();
   final utilsGeneral=UtilsGeneral();
-  // @override
-  // void didChangeDependencies() {
-  //   // TODO: implement didChangeDependencies
-  //   super.didChangeDependencies();
-  //   Provider.of<AuthViewModel>(context,listen: false).resetPassword(email: mailController.text.trim().toString());
-  //   if(AppConstants.checkMailStatus==true){
-  //     AppDialogs.showAuthDialog(
-  //       //context: context,
-  //       title: AppStrings.checkEmailText,
-  //       body: AppStrings.checkEmailBodyText,
-  //       okBtnTitle: AppStrings.okText,
-  //       okBtnPressed: () {
-  //         Navigator.pop(context);
-  //
-  //       },
-  //     );
-  //   }
-  // }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    final authViewModel = Provider.of<AuthViewModel>(context,listen: false).users;
+    Future.delayed(const Duration(seconds: 0),() {
+      //Provider.of<AuthViewModel>(context).sessionProvider();
+      debugPrint(AppConstants.checkStatus.toString());
+      if(AppConstants.checkStatus==true){
+        if(authViewModel?.data?.email==null){
+          AppDialogs.showAuthDialog(
+            // context: context,
+            title: AppStrings.currentUserSessionText,
+            body: AppStrings.currentUserSessionBodyText,
+            okBtnTitle: AppStrings.okText,
+            okBtnPressed: () => Get.back(),);
+        }
+        AppConstants.checkStatus=false;
+      }
+    },);
+  }
+
 
   @override
   void dispose() {
     // TODO: implement dispose
     emailController.dispose();
     passwordController.dispose();
-    mailController.dispose();
+    //mailController.dispose();
     emailFocusNode.dispose();
     passFocusNode.dispose();
     super.dispose();
@@ -130,7 +135,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         textInputType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.done,
                         validator: (value)=>ValidationUtils.validateEmail(value),
-                        controller: mailController,
+                        controller: AppConstants.mailController,
                       ),
                       // onSubmitTap: () {
                       //   Navigator.pop(context);
@@ -167,7 +172,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           email: emailController.text.trim().toString(),
                           password: passwordController.text.trim().toString(),
                         );
-                        //authViewModel.currentUser(context);
+                        authViewModel.currentUser();
                         if (kDebugMode) {
                           print(emailController.text);
                         }

@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:provider/provider.dart';
 import 'package:swole_app/ui/utils/constants.dart';
 
 import '../../../../constants/app_strings.dart';
 import '../../../../constants/colors.dart';
 import '../../../../constants/dimens.dart';
 import '../../../../routes/routes_name.dart';
+import '../../../../view_model/auth_view_model.dart';
 import '../../../utils/app_dialogs/dialogs.dart';
 import '../../../utils/ui_helper/ui_helper.dart';
 import '../../../widgets/text_widget.dart';
@@ -97,9 +99,18 @@ class ForgetPasswordEmailWidget extends StatelessWidget {
 
   onSubmit() {
     if (_forgetFormKey.currentState!.validate()) {
-      // Navigator.pop(ctx);
-      AppConstants.checkMailStatus=true;
+      Provider.of<AuthViewModel>(ctx,listen: false).resetPassword(email: AppConstants.mailController.text.trim().toString());
+      AppConstants.mailController.clear();
       Get.back();
+      AppDialogs.showAuthDialog(
+        title: AppStrings.checkEmailText,
+        body: AppStrings.checkEmailBodyText,
+        okBtnTitle: AppStrings.okText,
+        okBtnPressed: () {
+          Get.back();
+
+        },
+      );
     }
   }
 }
